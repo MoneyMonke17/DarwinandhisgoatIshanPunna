@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Darwin's Evolutionary Impact — A Digital Exhibit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:hsl(42 34% 95%); --fg:hsl(158 20% 13%); --card:hsl(42 30% 97%);
+    --primary:hsl(158 34% 20%); --primary-fg:hsl(42 34% 96%);
+    --secondary:hsl(42 24% 89%); --muted:hsl(42 22% 87%); --muted-fg:hsl(158 10% 40%);
+    --accent:hsl(28 64% 46%); --accent-fg:hsl(42 34% 98%);
+    --border:hsl(42 20% 84%); --ring:hsl(158 34% 20%);
+    --chart-1:hsl(158 40% 30%); --chart-2:hsl(28 64% 50%); --chart-3:hsl(200 45% 42%);
+    --chart-4:hsl(43 74% 56%); --chart-5:hsl(340 55% 48%);
+    --font-display:'Cormorant Garamond',Georgia,serif; --font-body:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1150px;margin:0 auto;padding:0 24px}
+  .font-display{font-family:var(--font-display)}
+  .accent{color:var(--accent)}
+  .muted{color:var(--muted-fg)}
+  section{position:relative;padding:96px 0}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  h2.title{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:600;line-height:1.05;letter-spacing:-.02em;margin:16px 0 20px}
+  p.lead{font-size:1.12rem;color:hsl(158 20% 13% / .68);max-width:640px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:8px;font-weight:500;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:.25s}
+  .btn-primary{background:var(--primary);color:var(--primary-fg);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.16)}
+  .btn-ghost{background:rgba(255,255,255,.4);border-color:var(--border);backdrop-filter:blur(4px)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:.4s}
+  .nav.scrolled{background:hsl(42 34% 95% / .85);backdrop-filter:blur(10px);border-bottom:1px solid hsl(42 20% 84% / .6);box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:1.3rem;font-weight:600}
+  .brand .dot{width:36px;height:36px;border-radius:50%;background:var(--primary);color:var(--primary-fg);display:grid;place-items:center;font-size:14px}
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{font-size:.9rem;font-weight:500;color:hsl(158 20% 13% / .7);position:relative;transition:.2s}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--accent);transition:.3s}
+  .nav-links a:hover::after{width:100%}
+  .menu-btn{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--fg)}
+  .mobile-menu{display:none;background:hsl(42 34% 95% / .96);border-bottom:1px solid var(--border);padding:12px 20px}
+  .mobile-menu a{display:block;padding:10px 0;font-weight:500;color:hsl(158 20% 13% / .8)}
+  @media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}}
+
+  /* scroll progress */
+  .progress{position:fixed;top:0;left:0;right:0;height:4px;background:var(--accent);transform-origin:left;transform:scaleX(0);z-index:60}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* hero */
+  .hero{min-height:100vh;display:flex;align-items:center;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;width:100%;padding-top:112px;padding-bottom:80px}
+  @media(min-width:1024px){.hero-grid{grid-template-columns:7fr 5fr}}
+  .hero h1{font-family:var(--font-display);font-weight:600;line-height:.95;letter-spacing:-.02em;font-size:clamp(2.8rem,7vw,4.6rem);margin:28px 0}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero p.sub{font-size:1.2rem;color:hsl(158 20% 13% / .7);max-width:34rem;margin-bottom:40px}
+  .badge{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border-radius:999px;border:1px solid var(--border);background:hsl(42 30% 97% / .6)}
+  .badge span{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:hsl(158 20% 13% / .7)}
+  .hero-stats{display:flex;gap:24px;margin-top:56px;flex-wrap:wrap}
+  .stat .num{font-family:var(--font-display);font-size:2.2rem;font-weight:600;color:var(--primary)}
+  .stat .lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-fg)}
+  .portrait{position:relative;max-width:380px;margin:0 auto}
+  .portrait .frame{position:absolute;inset:-16px;border:1px solid hsl(42 20% 84% / .7);border-radius:32px;transform:rotate(3deg)}
+  .portrait .glow{position:absolute;inset:-16px;border-radius:32px;background:linear-gradient(135deg,hsl(28 64% 46% / .1),hsl(158 34% 20% / .1));transform:rotate(-2deg)}
+  .portrait .imgbox{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);background:var(--card);border:1px solid hsl(42 20% 84% / .5)}
+  .portrait img{width:100%;height:544px;object-fit:cover;object-position:top;filter:grayscale(.15) contrast(1.05)}
+  .glasses{position:absolute;left:50%;transform:translateX(-50%);top:26%;width:46%;z-index:3;pointer-events:none;filter:drop-shadow(0 3px 5px rgba(0,0,0,.4))}
+  .portrait .cap{position:absolute;left:20px;right:20px;bottom:20px;color:var(--primary-fg)}
+  .portrait .cap .n{font-family:var(--font-display);font-size:1.6rem;font-weight:600}
+  .portrait .cap .d{font-size:.85rem;opacity:.85;margin-top:4px}
+
+  /* voyage */
+  .voyage-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-top:48px}
+  @media(min-width:1024px){.voyage-grid{grid-template-columns:5fr 7fr}}
+  .timeline{position:relative;padding-left:32px}
+  .timeline::before{content:"";position:absolute;left:12px;top:8px;bottom:8px;width:1px;background:var(--border)}
+  .tl-item{display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:12px 16px;border-radius:10px;transition:.2s}
+  .tl-item:hover{background:hsl(42 30% 97% / .5)}
+  .tl-item.active{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid var(--border)}
+  .tl-row{display:flex;gap:16px;align-items:flex-start}
+  .tl-pin{font-size:18px;line-height:1}
+  .tl-year{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--primary)}
+  .tl-place{font-size:.9rem;color:hsl(158 20% 13% / .8);margin-top:2px}
+  .voyage-card{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
+  .voyage-head{height:224px;background:linear-gradient(135deg,hsl(200 45% 42% / .85),hsl(158 34% 20% / .6));position:relative;color:var(--primary-fg);padding:20px 24px}
+  .voyage-head .yr{font-family:var(--font-display);font-size:1.2rem;opacity:.9}
+  .voyage-head .pl{font-family:var(--font-display);font-size:1.9rem;font-weight:600}
+  .voyage-body{padding:32px}
+  .voyage-body h3{font-family:var(--font-display);font-size:1.6rem;font-weight:600}
+  .voyage-body p{margin-top:16px;color:hsl(158 20% 13% / .7);font-size:1.1rem}
+  .voyage-bar{margin-top:32px;height:6px;border-radius:999px;background:var(--muted);overflow:hidden}
+  .voyage-bar i{display:block;height:100%;background:var(--accent);transition:.5s}
+
+  /* claims */
+  .claims{background:hsl(42 24% 89% / .4)}
+  .claim-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
+  .claim-tab{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:10px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.9rem;font-weight:500;transition:.25s}
+  .claim-tab:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .claim-tab.active{background:var(--primary);color:var(--primary-fg);border-color:var(--primary);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+  .claim-tab .n{font-family:var(--font-display);font-weight:600}
+  .claim-panel{display:grid;grid-template-columns:1fr;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
+  @media(min-width:1024px){.claim-panel{grid-template-columns:5fr 7fr}}
+  .claim-head{padding:40px;background:hsl(158 34% 20% / .03);border-bottom:1px solid var(--border)}
+  @media(min-width:1024px){.claim-head{border-bottom:0;border-right:1px solid var(--border)}}
+  .claim-head .big{font-family:var(--font-display);font-size:3rem;font-weight:600;color:hsl(28 64% 46% / .3)}
+  .claim-head h3{font-family:var(--font-display);font-size:2rem;font-weight:600;margin-top:20px}
+  .claim-head .tag{font-style:italic;color:hsl(158 20% 13% / .7);margin-top:12px;font-size:1.1rem}
+  .claim-head .blurb{margin-top:24px;color:hsl(158 20% 13% / .65)}
+  .claim-body{padding:40px}
+  .ev-row{display:flex;gap:20px;padding:20px;border:1px solid var(--border);border-radius:12px;background:hsl(42 34% 95% / .5);margin-bottom:20px;transition:.25s}
+  .ev-row:hover{border-color:hsl(28 64% 46% / .4);background:var(--bg)}
+  .ev-ic{width:48px;height:48px;border-radius:10px;background:hsl(158 34% 20% / .1);color:var(--primary);display:grid;place-items:center;flex-shrink:0;font-size:20px}
+  .ev-row h4{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
+  .ev-type{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+  .ev-row p{margin-top:8px;color:hsl(158 20% 13% / .65)}
+
+  /* speciation */
+  .spec-grid{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:1024px){.spec-grid{grid-template-columns:1fr 1fr}}
+  .spec-card{padding:32px}
+  .spec-ic{width:44px;height:44px;border-radius:50%;background:var(--primary);color:var(--primary-fg);display:grid;place-items:center;font-size:20px}
+  .spec-card h3{font-family:var(--font-display);font-size:1.6rem;font-weight:600;margin:16px 0}
+  .spec-ex{margin-top:20px;padding:16px;border-radius:12px;background:hsl(28 64% 46% / .1);border:1px solid hsl(28 64% 46% / .2)}
+  .spec-ex .lab{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
+  .spec-ex h4{font-family:var(--font-display);font-size:1.2rem;font-weight:600}
+  .spec-ex p{margin-top:8px;font-size:.92rem;color:hsl(158 20% 13% / .7)}
+
+  /* simulation */
+  .sim-grid{display:grid;grid-template-columns:1fr;gap:20px}
+  @media(min-width:1024px){.sim-grid{grid-template-columns:8fr 4fr}}
+  .sim-world{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:linear-gradient(180deg,hsl(42 30% 93%),hsl(42 24% 88%))}
+  .sim-canvas{display:block;width:100%;aspect-ratio:8/5}
+  .sim-ctrls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:16px;border-top:1px solid var(--border);background:hsl(42 30% 97% / .7)}
+  .sim-btn{padding:10px 16px;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);transition:.2s}
+  .sim-btn.on{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+  .sim-btn.go{background:var(--primary);color:var(--primary-fg);border-color:var(--primary)}
+  .sim-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .sim-stat{text-align:center;padding:16px;border:1px solid var(--border);border-radius:12px;background:var(--card)}
+  .sim-stat .v{font-family:var(--font-display);font-size:1.6rem;font-weight:600}
+  .sim-stat .l{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-fg);margin-top:4px}
+  .sim-legend{font-size:.85rem;color:hsl(158 20% 13% / .6);display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}
+  .dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* case study */
+  .case{background:var(--primary);color:var(--primary-fg);overflow:hidden}
+  .case h2.title{color:var(--primary-fg)}
+  .case p.lead{color:hsl(42 34% 96% / .7)}
+  .case .eyebrow{color:var(--accent)}
+  .case-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:48px}
+  @media(min-width:1024px){.case-grid{grid-template-columns:4fr 8fr}}
+  .case-tab{width:100%;display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:12px;text-align:left;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:var(--primary-fg);transition:.2s}
+  .case-tab:hover{background:rgba(255,255,255,.1)}
+  .case-tab.on{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);box-shadow:0 6px 16px rgba(0,0,0,.2)}
+  .case-panel{border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:40px;backdrop-filter:blur(4px)}
+  .case-panel h3{font-family:var(--font-display);font-size:1.9rem;font-weight:600;margin-top:20px}
+  .case-panel p{margin-top:20px;color:hsl(42 34% 96% / .75);font-size:1.1rem}
+  .case-stat{margin-top:32px;display:flex;gap:20px;align-items:center;padding:20px;border-radius:12px;background:hsl(28 64% 46% / .15);border:1px solid hsl(28 64% 46% / .3)}
+  .case-stat .n{font-family:var(--font-display);font-size:2rem;font-weight:600;color:var(--accent)}
+  .case-stat .t{font-size:.9rem;color:hsl(42 34% 96% / .8)}
+
+  /* classification */
+  .hierarchy{padding:32px;margin-bottom:48px}
+  .hier-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:20px}
+  .hier-chip{padding:8px 14px;border-radius:8px;font-family:var(--font-display);font-weight:600;border:1px solid var(--border);color:var(--primary)}
+  .hier-arr{color:var(--accent);font-weight:700}
+  .class-grid{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:1024px){.class-grid{grid-template-columns:5fr 7fr}}
+  .dom-btn{width:100%;display:flex;gap:16px;align-items:flex-start;padding:20px;border-radius:12px;border:1px solid var(--border);background:var(--card);text-align:left;cursor:pointer;transition:.25s;margin-bottom:12px}
+  .dom-btn:hover{transform:translateY(-2px);border-color:hsl(28 64% 46% / .4)}
+  .dom-btn.on{box-shadow:0 4px 12px rgba(0,0,0,.08);border-color:hsl(158 20% 13% / .15)}
+  .dom-ic{width:48px;height:48px;border-radius:10px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+  .dom-btn h4{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
+  .dom-btn p{font-size:.88rem;color:hsl(158 20% 13% / .65);margin-top:4px}
+  .dom-detail{padding:32px;border-radius:16px;border:1px solid var(--border);background:var(--card)}
+  .king-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+  @media(min-width:768px){.king-grid{grid-template-columns:repeat(4,1fr)}}
+  .king-card{padding:24px;border-radius:12px;border:1px solid var(--border);background:var(--card)}
+  .king-card h4{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-top:16px}
+  .king-card p{font-size:.85rem;color:hsl(158 20% 13% / .65);margin-top:8px}
+
+  /* quiz */
+  .quiz{background:hsl(42 24% 89% / .4)}
+  .quiz-box{max-width:720px;margin:0 auto;border-radius:16px;border:1px solid var(--border);background:var(--card);overflow:hidden}
+  .quiz-head{padding:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .quiz-q{font-family:var(--font-display);font-size:1.4rem;font-weight:600;margin:16px 0}
+  .quiz-opt{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;border:1px solid var(--border);border-radius:12px;background:var(--bg);text-align:left;cursor:pointer;font-size:1rem;transition:.2s;margin-bottom:12px}
+  .quiz-opt:hover{border-color:hsl(28 64% 46% / .5)}
+  .quiz-opt.correct{border-color:hsl(140 60% 40% / .6);background:hsl(140 60% 40% / .1)}
+  .quiz-opt.wrong{border-color:hsl(0 70% 45% / .6);background:hsl(0 70% 45% / .1)}
+  .quiz-opt.dim{opacity:.5}
+  .quiz-fb{margin-top:20px;padding:16px;border-radius:12px;background:hsl(28 64% 46% / .1);border:1px solid hsl(28 64% 46% / .2);font-size:.9rem}
+  .quiz-next{margin-top:20px;display:flex;justify-content:flex-end}
+  .bar{height:4px;border-radius:999px;background:var(--muted);overflow:hidden;margin-bottom:32px}
+  .bar i{display:block;height:100%;background:var(--accent);transition:.4s}
+
+  /* footer */
+  footer{border-top:1px solid var(--border);background:var(--card);padding:64px 0}
+  .fgrid{display:grid;grid-template-columns:1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid var(--border)}
+  @media(min-width:1024px){.fgrid{grid-template-columns:5fr 7fr}}
+  .fsources{display:grid;grid-template-columns:1fr;gap:8px}
+  @media(min-width:640px){.fsources{grid-template-columns:1fr 1fr}}
+  .fsrc{display:flex;gap:8px;font-size:.85rem;color:hsl(158 20% 13% / .7)}
+  .fsrc:hover{color:var(--accent)}
+  .fmeta{padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.85rem;color:var(--muted-fg)}
+  .paper{background-image:radial-gradient(circle at 20% 20%,hsl(42 40% 92% / .6) 0%,transparent 50%),radial-gradient(circle at 80% 0%,hsl(28 40% 85% / .35) 0%,transparent 45%),radial-gradient(circle at 50% 100%,hsl(158 30% 85% / .25) 0%,transparent 55%)}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="dot">✎</span>Darwin<span class="accent">.</span>Exhibit</a>
+    <ul class="nav-links" id="navlinks"></ul>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu"></div>
+
+<!-- HERO -->
+<section class="hero paper" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge reveal"><span>✦</span><span>A Digital Exhibit · 1831 — Present</span></div>
+      <h1 class="reveal">Darwin's <em>Evolutionary</em><br>Impact</h1>
+      <p class="sub reveal">Trace Charles Darwin's five claims from the Galápagos to the genome lab — and discover how evolution still reshapes medicine, conservation, and life itself.</p>
+      <div class="reveal" style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#voyage" class="btn btn-primary">⚓ Begin the Voyage</a>
+        <a href="#claims" class="btn btn-ghost">Explore the Five Claims</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat"><div class="num">5</div><div class="lab">Core Claims</div></div>
+        <div class="stat"><div class="num">15+</div><div class="lab">Evidence Cases</div></div>
+        <div class="stat"><div class="num">1</div><div class="lab">Living Simulation</div></div>
+      </div>
+    </div>
+    <div class="reveal" style="position:relative">
+      <div class="portrait">
+        <div class="frame"></div><div class="glow"></div>
+        <div class="imgbox">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Charles_Darwin_portrait.jpg" alt="Charles Darwin wearing pixelated glasses" />
+          <!-- Pixelated "thug life" glasses -->
+          <svg class="glasses" viewBox="0 0 20 12" shape-rendering="crispEdges" style="image-rendering:pixelated">
+            <rect x="0" y="2" width="20" height="2" fill="#000"/>
+            <rect x="0" y="4" width="1" height="2" fill="#000"/>
+            <rect x="19" y="4" width="1" height="2" fill="#000"/>
+            <rect x="9" y="4" width="2" height="1" fill="#000"/>
+            <rect x="1" y="4" width="8" height="6" fill="#000"/>
+            <rect x="11" y="4" width="8" height="6" fill="#000"/>
+            <rect x="2" y="10" width="6" height="1" fill="#000"/>
+            <rect x="12" y="10" width="6" height="1" fill="#000"/>
+            <rect x="2" y="5" width="2" height="2" fill="#fff"/>
+            <rect x="12" y="5" width="2" height="2" fill="#fff"/>
+          </svg>
+          
+        </div>
+        <div style="margin-top:20px;text-align:center">
+          <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--primary)">Charles Darwin</div>
+          <div style="font-size:.85rem;color:var(--muted-fg);margin-top:4px">1809 — 1882 · Aboard HMS Beagle, 1831–1836</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOYAGE -->
+<section id="voyage" class="reveal">
+  <div class="wrap">
+    <span class="eyebrow">The Voyage of the Beagle</span>
+    <h2 class="title">Five years that changed how we see life</h2>
+    <p class="lead">Darwin's thinking was forged by the places he visited. Each landfall handed him a new piece of evidence — from tropical abundance to island isolation.</p>
+    <div class="voyage-grid">
+      <div class="timeline" id="timeline"></div>
+      <div id="voyageCard"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAIMS -->
+<section id="claims" class="claims reveal">
+  <div class="wrap">
+    <span class="eyebrow">Darwin's Five Claims</span>
+    <h2 class="title">The pillars of evolutionary theory</h2>
+    <p class="lead">Each claim is backed by three pieces of evidence — one historical and two modern — connecting Darwin's 19th-century observations to today's biology, medicine, and climate.</p>
+    <div class="claim-tabs" id="claimTabs"></div>
+    <div id="claimPanel"></div>
+  </div>
+</section>
+
+<!-- SPECIATION -->
+<section id="speciation" class="reveal">
+  <div class="wrap">
+    <span class="eyebrow">Claim IV in Depth · Multiplication of Species</span>
+    <h2 class="title">How new species form</h2>
+    <p class="lead">Darwin realized species diverge from a common ancestor into new, distinct species. Today we see this through two pathways — allopatric (geographic isolation) and sympatric (within the same area).</p>
+    <div class="spec-grid" style="margin-top:48px">
+      <div class="card spec-card reveal">
+        <div class="spec-ic">⛰</div>
+        <h3>Allopatric Speciation</h3>
+        <p style="color:hsl(158 20% 13% / .7)">Physical barriers like rivers, mountains, or human-caused fragmentation separate populations. Isolated groups face different selective pressures, causing distinct species to arise over time.</p>
+        <div class="spec-ex"><div class="lab">Real World Example</div><h4>Polar Bears &amp; Grizzly Bears</h4><p>They share a common ancestor but became two species. During the ice ages, grizzlies were geographically isolated in an arctic environment through Pleistocene glaciations (Fonseca et al., 2023). A growing appetite for seals also contributed (PBS WHYY, 2008).</p></div>
+      </div>
+      <div class="card spec-card reveal">
+        <div class="spec-ic">🍎</div>
+        <h3>Sympatric Speciation</h3>
+        <p style="color:hsl(158 20% 13% / .7)">New species emerge without physical barriers, often when parts of a population specialize in different resources or food within the same area.</p>
+        <div class="spec-ex"><div class="lab">Real World Example</div><h4>The Apple Maggot Fly</h4><p>The North American apple maggot fly diverged within the same area. Originally feeding on hawthorn fruit, some shifted to apple trees introduced in the 19th century. Because young flies favor the scent of the fruit they hatched on, apple-born and hawthorn-born flies split apart (Berkeley UC, n.d.).</p></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:24px;overflow:hidden">
+      <img src="https://cdn.britannica.com/44/182344-050-5ECEF0AD/map-voyage-Charles-Darwin-HMS-Beagle.jpg?w=600&h=400&fit=crop" alt="Map of Darwin's HMS Beagle voyage" style="width:100%;height:280px;object-fit:cover" />
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATION -->
+<section id="simulation" class="reveal">
+  <div class="wrap">
+    <span class="eyebrow">Interactive · Natural Selection in Action</span>
+    <h2 class="title">The Finch Beak Simulation</h2>
+    <p class="lead">A living model of Darwin's claims. Each bird's beak size determines which seeds it can crack. Flip on a drought and watch selection shift the whole population toward larger beaks — just like the 1977 Galápagos drought.</p>
+    <div class="sim-grid" style="margin-top:48px">
+      <div class="sim-world">
+        <canvas id="simCanvas" class="sim-canvas" width="640" height="400"></canvas>
+        <div class="sim-ctrls">
+          <button class="sim-btn go" id="simPlay">⏸ Pause</button>
+          <button class="sim-btn" id="simReset">↻ Reset</button>
+          <button class="sim-btn" id="simDrought">☀ Drought: Off</button>
+          <div class="sim-legend">
+            <span><span class="dot" style="background:#65a30d"></span>Soft seed (small beak)</span>
+            <span><span class="dot" style="background:#b45309"></span>Hard seed (large beak)</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sim-stats">
+          <div class="sim-stat"><div class="v" id="sPop">0</div><div class="l">Population</div></div>
+          <div class="sim-stat"><div class="v" id="sGen">0</div><div class="l">Generation</div></div>
+          <div class="sim-stat"><div class="v" id="sBeak">0.00</div><div class="l">Avg Beak</div></div>
+        </div>
+        <div class="card" style="padding:20px;margin-top:16px">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:8px">Average Beak Size Over Generations</div>
+          <canvas id="simChart" width="480" height="180" style="width:100%"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section id="case-study" class="case reveal">
+  <div class="wrap">
+    <span class="eyebrow">Case Study Spotlight</span>
+    <h2 class="title">Darwin in a pandemic</h2>
+    <p class="lead">Darwin's principles aren't relics — they describe what happened during COVID-19. Explore how each claim played out in the rise of the variants.</p>
+    <div class="case-grid">
+      <div id="caseTabs"></div>
+      <div id="casePanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSIFICATION -->
+<section id="classification" class="reveal">
+  <div class="wrap">
+    <span class="eyebrow">Domain Classification Model</span>
+    <h2 class="title">How life is organized today</h2>
+    <p class="lead">Carl Linnaeus proposed a classification system in 1753. Two and a half centuries later, genetic technology has rewritten it from physical traits alone to a system grounded in DNA.</p>
+    <div class="card hierarchy">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">The Linnaean Hierarchy — from broadest to most specific</div>
+      <div class="hier-row" id="hierRow"></div>
+      <p style="margin-top:20px;font-size:.9rem;color:var(--muted-fg)"><strong>Taxonomy</strong> is the science of naming, describing, and classifying organisms. Modern tools — DNA and RNA sequencing — group species by shared genes, not just shared appearance.</p>
+    </div>
+    <div class="class-grid">
+      <div id="domList"></div>
+      <div id="domDetail"></div>
+    </div>
+    <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;margin:40px 0 20px">The Kingdoms of Eukarya</h3>
+    <div class="king-grid" id="kingGrid"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="quiz reveal">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:48px">
+      <span class="eyebrow">Test Your Knowledge</span>
+      <h2 class="title">The Evolution Quiz</h2>
+      <p class="lead" style="margin:0 auto">Five quick questions tying Darwin's claims to the evidence in this exhibit.</p>
+    </div>
+    <div class="quiz-box" id="quizBox"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="brand"><span class="dot">✎</span>Darwin<span class="accent">.</span>Exhibit</div>
+        <p style="margin-top:20px;color:hsl(158 20% 13% / .65);max-width:24rem">A digital exhibit tracing Darwin's five claims from the Galápagos to the genome lab — built as a performance assessment for the Evolution unit.</p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:600">Why does this matter?</h3>
+        <p style="margin-top:16px;color:hsl(158 20% 13% / .65)">Science communicators translate research into understanding. This exhibit shows that evolution isn't just history — it drives antibiotic resistance, shapes how viruses spread, redraws coral reefs, and tells us how all life is connected. Darwin's five claims remain the lens through which we read the living world.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:40px;padding:40px 0" class="fsrc-wrap">
+      <div><div class="eyebrow">Sources &amp; Credibility</div><p style="margin-top:12px;font-size:.85rem;color:var(--muted-fg);max-width:28rem">Following Stanford Guidelines for Web Credibility, all content is drawn from peer-reviewed research, established educational institutions, and primary texts.</p></div>
+      <div class="fsources" id="fsources"></div>
+    </div>
+    <div class="fmeta"><p>© 1831 — Present · A Digital Exhibit on Darwin's Evolutionary Impact.</p><p style="font-style:italic">"Nothing in biology makes sense except in the light of evolution."</p></div>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const NAV=[["Voyage","#voyage"],["Five Claims","#claims"],["Simulation","#simulation"],["Case Study","#case-study"],["Classification","#classification"],["Speciation","#speciation"],["Quiz","#quiz"]];
+const VOYAGE=[
+  {y:"1831",p:"Plymouth, England",c:"50.4°N",t:"The Departure",x:"Darwin, age 22, joins HMS Beagle as naturalist on a five-year survey voyage. The ship carries him into the questions that will define his life.",col:"200 45% 42%"},
+  {y:"1832",p:"Cape Verde & Brazil",c:"14.9°N",t:"The Tropics Awaken",x:"In the rainforests of Bahia, Darwin is staggered by the sheer diversity of life — the first glimpse that species vary with environment.",col:"43 74% 56%"},
+  {y:"1833",p:"Patagonia, Argentina",c:"41.0°S",t:"Fossils of Giants",x:"He unearths giant extinct mammal fossils — glyptodons and ground sloths. The realization dawns: species are not eternal.",col:"28 64% 46%"},
+  {y:"1834",p:"Tierra del Fuego",c:"55.0°S",t:"The Edge of the World",x:"Harsh, windswept islands reveal how environment shapes the creatures that survive there. Observation sharpens into a theory of adaptation.",col:"200 45% 42%"},
+  {y:"1835",p:"Galápagos Islands",c:"0.7°S",t:"The Finches & Tortoises",x:"Mockingbirds and finches differ from island to island; tortoises carry island-specific shells. The sparks of natural selection are struck here.",col:"28 64% 46%"},
+  {y:"1836",p:"Return to England",c:"50.4°N",t:"A Theory Takes Shape",x:"Darwin returns and spends 23 years gathering evidence before publishing On the Origin of Species in 1859 — biology is never the same.",col:"158 40% 30%"}
+];
+const CLAIMS=[
+  {id:"I",title:"Nonconstancy of Species",tag:"Species are not fixed — they change over time.",icon:"⚗",blurb:"Darwin broke from the idea that species were created once and never altered. Life is fluid — populations shift, and species can vanish. Today, evolution happens fast enough to watch in real time.",ev:[
+    {ic:"⚗",t:"Antibiotic-Resistant Bacteria",ty:"Modern · Medicine",x:"Within decades of penicillin's introduction, MRSA evolved resistance. Mutations that neutralize drugs are inherited, so resistant strains rapidly dominate under antibiotic pressure."},
+    {ic:"🦴",t:"Darwin's Patagonian Fossils",ty:"Historical · Paleontology",x:"In 1833 Darwin unearthed giant extinct glyptodons and ground sloths resembling living armadillos. Their disappearance proved species are not permanent."},
+    {ic:"📈",t:"The Peppered Moth",ty:"Modern · Industrial",x:"During Britain's Industrial Revolution, Biston betularia shifted from pale to dark as soot blackened the trees, and back again as air cleared."}
+  ]},
+  {id:"II",title:"Descent from a Common Ancestor",tag:"All life shares a deep, branching ancestry.",icon:" branching".trim(),blurb:"Every living thing is a cousin at some remove. The same bones, the same genes, and a chain of fossils all point back to shared ancestors.",ev:[
+    {ic:"🦴",t:"Tiktaalik — A Fish With a Neck",ty:"Historical · Transitional Fossil",x:"Discovered in 2004, Tiktaalik shows fish scales and fins alongside a mobile neck and wrist bones — the predicted intermediate between fish and land vertebrates."},
+    {ic:"🧬",t:"Human–Chimpanzee DNA",ty:"Modern · Genomics",x:"Humans and chimpanzees share about 98.8% of their DNA, and the same universal genetic code runs through every living thing."},
+    {ic:"🌿",t:"Homologous Limb Bones",ty:"Modern · Comparative Anatomy",x:"The same one upper bone, two lower bones, and five digits appear in a human arm, whale flipper, bat wing, and cat leg — one ancestral blueprint reshaped."}
+  ]},
+  {id:"III",title:"Gradual Evolution",tag:"Change accumulates slowly, generation by generation.",icon:"📈",blurb:"Evolution is rarely a sudden leap. Across many generations, small inherited differences stack up until a population looks nothing like where it began.",ev:[
+    {ic:"📈",t:"Galápagos Finch Beaks",ty:"Modern · Long-term Study",x:"The Grants measured finches on Daphne Major for 40 years. After the 1977 drought, average beak depth rose as only large-beaked birds could crack tough seeds."},
+    {ic:"🐕",t:"Artificial Selection in Dogs",ty:"Modern · Breeding",x:"From a single wolf-like ancestor, selective breeding produced Chihuahuas and Great Danes — a sped-up model of gradual selection."},
+    {ic:"🦴",t:"Whales From Land Mammals",ty:"Historical · Fossil Series",x:"A fossil chain — Pakicetus, Ambulocetus, Rodhocetus — traces whales over millions of years from four-legged land mammals to aquatic giants."}
+  ]},
+  {id:"IV",title:"Multiplication of Species",tag:"One ancestor can branch into many new species.",icon:"/div".replace("/","branching"),blurb:"When populations become isolated in different environments, they adapt apart until they can no longer interbreed — one species becomes many.",ev:[
+    {ic:"fork".replace("fork","/div").replace("/div","🌱"),t:"Galápagos Adaptive Radiation",ty:"Modern · Islands",x:"A single ancestral finch colonized the Galápagos and diversified into 18+ species, each with beaks suited to its island's food."},
+    {ic:"🌿",t:"Ring Species of Salamanders",ty:"Modern · Geography",x:"Ensatina salamanders spread around California's Central Valley in a ring. Neighbors interbreed, but where the ring closes they are reproductively distinct."},
+    {ic:"🌊",t:"Cichlid Fish in Rift Lakes",ty:"Modern · Lakes",x:"In Lake Victoria, hundreds of cichlid species evolved from a common ancestor in under 15,000 years, each exploiting a different niche."}
+  ]},
+  {id:"V",title:"Natural Selection",tag:"The best-suited variants survive and reproduce.",icon:"🔍",blurb:"Darwin's engine of change. Individuals with traits that fit the conditions survive and pass them on. As climates shift, selection shifts with them — in real time.",ev:[
+    {ic:"❄",t:"Mosquitoes and a Warming Spring",ty:"Modern · Climate",x:"Pitcher-plant mosquitoes have evolved to respond to longer, warmer days earlier. Bradshaw and Holzapfel documented the genetic shift as climates warm."},
+    {ic:"📈",t:"Threespine Stickleback Adaptation",ty:"Modern · Environment",x:"As stickleback recolonized freshwater from the sea, they repeatedly lost armor plates and changed body shape to suit each new lake."},
+    {ic:"🌊",t:"Coral & Climate Pressure",ty:"Modern · Oceans",x:"Warming oceans are a selective force: some coral populations are evolving greater heat tolerance while less-tolerant colonies bleach and die."}
+  ]}
+];
+const CASE=[
+  {k:"overview",l:"Overview",ic:"🔬",t:"The Evolution of COVID-19 Variants",b:"When SARS-CoV-2 emerged in 2019, there was a single viral strain. By 2021, dozens of variants circulated. By 2022, Omicron had taken over the globe. This is Darwin's machinery running in real time.",s:["50+","mutations in Omicron vs. the original strain"]},
+  {k:"nonconstancy",l:"Nonconstancy",ic:"🦠",t:"The virus never stays the same",b:"Every time SARS-CoV-2 copies itself, copying errors produce mutations. Alpha, Delta, and Omicron were each changed descendants. Viruses evolve millions of times faster than animals.",s:["≈2","mutations per month the virus accrued globally"]},
+  {k:"selection",l:"Selection",ic:"🛡",t:"Vaccines became the selecting environment",b:"When vaccines taught immune systems to recognize the virus, variants best at evading immunity survived and spread. Omicron carried 50+ mutations on its spike protein. It didn't 'try' to escape — selection favored whatever could.",s:["Omicron","outcompeted Delta within weeks worldwide"]},
+  {k:"multiplication",l:"Multiplication",ic:"fork".replace("fork"," branching"),t:"Isolated populations forked apart",b:"Variants arose in different regions — Alpha in the UK, Beta in South Africa, Delta in India, Omicron in southern Africa. Each population applied different pressures, so the virus evolved into distinct lineages.",s:["5+","major named lineages from one ancestor"]},
+  {k:"global",l:"Global Map",ic:"🌍",t:"Where each variant first dominated",b:"The geography of variants mirrors the geography of speciation: isolated populations under different conditions produce distinct lineages.",s:["4","continents where distinct variants first took hold"]}
+];
+const HIER=["Domain","Kingdom","Phylum","Class","Order","Family","Genus","Species"];
+const DOMAINS=[
+  {key:"bacteria",name:"Bacteria",ic:"🐛",col:"43 74% 56%",sum:"Unicellular prokaryotes with no nucleus; nearly everywhere on Earth.",traits:["Single-celled, no nucleus (prokaryotic)","Cell walls made of peptidoglycan","Reproduce asexually via binary fission","Phyla: Proteobacteria, Cyanobacteria, Gram-positive"],ex:"Escherichia coli — the gut bacterium studied worldwide"},
+  {key:"archaea",name:"Archaea",ic:"🧬",col:"340 55% 48%",sum:"Single-celled prokaryotes closer to eukaryotes than bacteria; thrive in extremes.",traits:["Single-celled, no nucleus","No peptidoglycan in cell walls","Survive in extremes — hot springs, salt, acid","Eukaryotes evolved from an archaeal ancestor"],ex:"Methanogens — archaea that produce methane"},
+  {key:"eukarya",name:"Eukarya",ic:"🌲",col:"158 40% 30%",sum:"Cells with a nucleus and organelles — from protists to plants, fungi, and animals.",traits:["Cells contain a nucleus and organelles","Generally larger than prokaryotes","Reproduce by mitosis or meiosis","Kingdoms: Protista, Fungi, Plantae, Animalia"],ex:"Homo sapiens — one species among millions of eukaryotes"}
+];
+const KINGDOMS=[
+  {n:"Plantae",ic:"🍃",x:"Multicellular, autotrophic, photosynthesizing. Cell walls of cellulose.",e:"Trees, grasses, flowers, mosses"},
+  {n:"Animalia",ic:"🐛",x:"Multicellular, heterotrophic, motile. No cell walls. The kingdom humans share.",e:"Humans, lions, birds, fish"},
+  {n:"Fungi",ic:"🍄",x:"Mostly multicellular, heterotrophic decomposers. Cell walls of chitin.",e:"Mushrooms, yeast, mold"},
+  {n:"Protista",ic:"🔬",x:"Mostly single-celled eukaryotes that don't fit the other kingdoms.",e:"Amoeba, paramecium, algae"}
+];
+const QUIZ=[
+  {q:"Which of Darwin's claims is most directly demonstrated by antibiotic-resistant bacteria like MRSA?",o:["Descent from a common ancestor","Nonconstancy of species","Gradual evolution","Multiplication of species"],a:1,e:"Bacteria evolving resistance within decades show species are not fixed — the core of Darwin's first claim."},
+  {q:"Tiktaalik, with both fish scales and a mobile neck, is evidence for which claim?",o:["Descent from a common ancestor","Natural selection","Multiplication of species","Nonconstancy of species"],a:0,e:"Tiktaalik is a transitional fossil — a predicted 'missing link' between fish and land vertebrates."},
+  {q:"In the finch simulation, why does a drought shift the population toward larger beaks?",o:["Birds consciously grow larger beaks when thirsty","Large-beaked birds crack the remaining hard seeds and survive to reproduce","The drought mutates beak genes directly","Small-beaked birds migrate away"],a:1,e:"Selection favors the traits that fit the environment — large beaks crack hard seeds, so those birds reproduce."},
+  {q:"How has genetic technology changed modern taxonomy?",o:["It replaced the hierarchy entirely","It allows grouping by DNA and RNA, not just physical traits","It proved all species are identical","It removed the domain rank"],a:1,e:"DNA and RNA sequencing reveal true evolutionary relationships that appearance alone can't show."},
+  {q:"Omicron outcompeting Delta after vaccines rolled out is an example of…",o:["Gradual evolution only","Natural selection favoring immune-evasive variants","Nonconstancy only","Artificial selection"],a:1,e:"Vaccines became the selecting environment; variants that could evade immunity survived and spread."}
+];
+const SOURCES=[
+  ["Understanding Evolution — UC Berkeley","https://evolution.berkeley.edu"],
+  ["On the Origin of Species (1859)","https://www.gutenberg.org/ebooks/1228"],
+  ["The Grants' Finches of Daphne Major","https://www.allaboutbirds.org/news/"],
+  ["NIH: Antibiotic Resistance","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4235121/"],
+  ["WHO: Tracking SARS-CoV-2 Variants","https://www.who.int/activities/tracking-SARS-CoV-2-variants"],
+  ["Carl Linnaeus & Modern Taxonomy","https://en.wikipedia.org/wiki/Linnaean_taxonomy"]
+];
+
+/* ============ NAV ============ */
+document.getElementById('navlinks').innerHTML=NAV.map(l=>`<li><a href="${l[1]}">${l[0]}</a></li>`).join('');
+document.getElementById('mobileMenu').innerHTML=NAV.map(l=>`<a href="${l[1]}">${l[0]}</a>`).join('');
+document.getElementById('menuBtn').onclick=()=>{const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block'};
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>40);document.getElementById('progress').style.transform='scaleX('+scrollY/(document.body.scrollHeight-innerHeight)||0+')'});
+function updProgress(){const m=document.body.scrollHeight-innerHeight;document.getElementById('progress').style.transform='scaleX('+(m>0?scrollY/m:0)+')'}
+window.addEventListener('scroll',updProgress);updProgress();
+
+/* ============ REVEAL ============ */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'-80px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============ VOYAGE ============ */
+let vActive=0;
+function renderVoyage(){
+  document.getElementById('timeline').innerHTML=VOYAGE.map((s,i)=>`<button class="tl-item ${i===vActive?'active':''}" onclick="setVoyage(${i})"><div class="tl-row"><span class="tl-pin" style="color:hsl(${s.col})">📍</span><div><div class="tl-year">${s.y} <span style="font-size:.8rem;color:var(--muted-fg);font-weight:400">${s.c}</span></div><div class="tl-place">${s.p}</div></div></div></button>`).join('');
+  const s=VOYAGE[vActive];
+  document.getElementById('voyageCard').innerHTML=`<div class="voyage-card"><div class="voyage-head" style="background:linear-gradient(135deg,hsl(${s.col} / .85),hsl(158 34% 20% / .6))"><div class="yr">${s.y}</div><div class="pl">${s.p}</div></div><div class="voyage-body"><h3>${s.t}</h3><p>${s.x}</p><div class="voyage-bar"><i style="width:${((vActive+1)/VOYAGE.length*100)}%;background:hsl(${s.col})"></i></div></div></div>`;
+}
+function setVoyage(i){vActive=i;renderVoyage()}
+renderVoyage();
+
+/* ============ CLAIMS ============ */
+let cActive=0;
+function renderClaims(){
+  document.getElementById('claimTabs').innerHTML=CLAIMS.map((c,i)=>`<button class="claim-tab ${i===cActive?'active':''}" onclick="setClaim(${i})"><span class="n" style="${i===cActive?'opacity:.8':'color:var(--accent)'}">${c.id}</span>${c.title}</button>`).join('');
+  const c=CLAIMS[cActive];
+  document.getElementById('claimPanel').innerHTML=`<div class="claim-panel"><div class="claim-head"><div style="display:flex;align-items:center;gap:12px"><span class="big">${c.id}</span><div style="width:44px;height:44px;border-radius:50%;background:var(--primary);color:var(--primary-fg);display:grid;place-items:center;font-size:20px">${c.icon.length>2?'🔍':c.icon}</div></div><h3>${c.title}</h3><div class="tag">${c.tag}</div><div class="blurb">${c.blurb}</div></div><div class="claim-body"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:20px">Three Pieces of Evidence</div>${c.ev.map(e=>`<div class="ev-row"><div class="ev-ic">${e.ic}</div><div><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px"><h4>${e.t}</h4><span class="ev-type">${e.ty}</span></div><p>${e.x}</p></div></div>`).join('')}</div></div>`;
+}
+function setClaim(i){cActive=i;renderClaims()}
+renderClaims();
+
+/* ============ CASE ============ */
+let csActive="overview";
+function renderCase(){
+  document.getElementById('caseTabs').innerHTML=CASE.map(t=>`<button class="case-tab ${t.k===csActive?'on':''}" onclick="setCase('${t.k}')"><span style="font-size:20px">${t.ic.length>2?'🔬':t.ic}</span><span>${t.l}</span></button>`).join('');
+  const t=CASE.find(x=>x.k===csActive);
+  document.getElementById('casePanel').innerHTML=`<div class="case-panel"><div style="display:flex;gap:12px;align-items:center;color:var(--accent)"><span style="font-size:22px">${t.ic.length>2?'🔬':t.ic}</span><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em">${t.l}</span></div><h3>${t.t}</h3><p>${t.b}</p><div class="case-stat"><div class="n">${t.s[0]}</div><div class="t">${t.s[1]}</div></div></div>`;
+}
+function setCase(k){csActive=k;renderCase()}
+renderCase();
+
+/* ============ CLASSIFICATION ============ */
+document.getElementById('hierRow').innerHTML=HIER.map((l,i)=>`<div style="display:flex;align-items:center;gap:8px"><div class="hier-chip" style="background:hsl(158 34% 20% / ${0.08+i*0.07})">${l}</div>${i<HIER.length-1?'<span class="hier-arr">→</span>':''}</div>`).join('');
+let dom="eukarya";
+function renderDom(){
+  document.getElementById('domList').innerHTML=DOMAINS.map(d=>`<button class="dom-btn ${d.key===dom?'on':''}" onclick="setDom('${d.key}')"><div class="dom-ic" style="background:hsl(${d.col} / .16);color:hsl(${d.col})">${d.ic}</div><div><h4>${d.name}</h4><p>${d.sum}</p></div></button>`).join('');
+  const d=DOMAINS.find(x=>x.key===dom);
+  document.getElementById('domDetail').innerHTML=`<div class="dom-detail"><div style="display:flex;gap:16px;align-items:center"><div class="dom-ic" style="width:56px;height:56px;background:hsl(${d.col} / .16);color:hsl(${d.col});font-size:28px">${d.ic}</div><div><div style="font-size:11px;text-transform:uppercase;color:var(--muted-fg)">Domain</div><h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:600">${d.name}</h3></div></div><div style="margin-top:28px"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:12px">Defining Traits</div><ul style="list-style:none">${d.traits.map(t=>`<li style="display:flex;gap:12px;margin-bottom:10px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:hsl(${d.col});margin-top:7px"></span><span style="color:hsl(158 20% 13% / .75)">${t}</span></li>`).join('')}</ul></div><div style="margin-top:28px;padding:16px;border-radius:12px;background:hsl(42 22% 87% / .6);border:1px solid var(--border)"><div style="font-size:11px;text-transform:uppercase;color:var(--muted-fg)">Example organism</div><div style="font-family:var(--font-display);font-size:1.1rem;font-style:italic;margin-top:4px">${d.ex}</div></div></div>`;
+}
+function setDom(k){dom=k;renderDom()}
+renderDom();
+document.getElementById('kingGrid').innerHTML=KINGDOMS.map(k=>`<div class="king-card"><div style="width:44px;height:44px;border-radius:10px;background:hsl(28 64% 46% / .16);color:var(--accent);display:grid;place-items:center;font-size:22px">${k.ic}</div><h4>${k.n}</h4><p>${k.x}</p><div style="font-size:11px;color:var(--muted-fg);margin-top:8px"><strong>Examples: </strong>${k.e}</div></div>`).join('');
+
+/* ============ QUIZ ============ */
+let qIdx=0,qPick=null,qScore=0,qDone=false;
+function renderQuiz(){
+  const box=document.getElementById('quizBox');
+  if(qDone){
+    const pct=Math.round(qScore/QUIZ.length*100);
+    const v=pct===100?'Perfect — a true evolutionist.':pct>=60?'Well done! Darwin would approve.':'A good start — revisit the claims above.';
+    box.innerHTML=`<div style="padding:48px;text-align:center"><div style="width:80px;height:80px;border-radius:50%;background:hsl(28 64% 46% / .15);color:var(--accent);display:grid;place-items:center;margin:0 auto 24px;font-size:40px">🏅</div><div style="font-family:var(--font-display);font-size:3rem;font-weight:600;color:var(--primary)">${qScore} / ${QUIZ.length}</div><p style="margin-top:12px;font-size:1.1rem;color:hsl(158 20% 13% / .7)">${v}</p><div style="font-size:.85rem;color:var(--muted-fg);margin-top:12px">You scored ${pct}%</div><button class="btn btn-ghost" style="margin-top:32px" onclick="restartQuiz()">↻ Retake Quiz</button></div>`;
+    return;
+  }
+  const c=QUIZ[qIdx];
+  const isLast=qIdx===QUIZ.length-1;
+  box.innerHTML=`<div style="padding:40px"><div class="quiz-head"><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">Question ${qIdx+1} of ${QUIZ.length}</span><span style="font-size:.9rem;color:hsl(158 20% 13% / .6)">Score: ${qScore}</span></div><div class="bar"><i style="width:${((qIdx+(qPick!==null?1:0))/QUIZ.length*100)}%"></i></div><div class="quiz-q">${c.q}</div>${c.o.map((o,i)=>{let cls='';if(qPick!==null){if(i===c.a)cls='correct';else if(i===qPick)cls='wrong';else cls='dim'}return `<button class="quiz-opt ${cls}" onclick="pickAns(${i})"><span>${o}</span>${qPick!==null&&i===c.a?'✅':qPick!==null&&i===qPick?'❌':''}</button>`}).join('')}${qPick!==null?`<div class="quiz-fb"><strong style="color:var(--accent)">${qPick===c.a?'Correct. ':'Not quite. '}</strong>${c.e}</div><div class="quiz-next"><button class="btn btn-primary" onclick="nextQ()">${isLast?'See Results':'Next Question'}</button></div>`:''}</div>`;
+}
+function pickAns(i){if(qPick!==null)return;qPick=i;if(i===QUIZ[qIdx].a)qScore++;renderQuiz()}
+function nextQ(){if(qIdx===QUIZ.length-1){qDone=true;renderQuiz();return}qIdx++;qPick=null;renderQuiz()}
+function restartQuiz(){qIdx=0;qPick=null;qScore=0;qDone=false;renderQuiz()}
+renderQuiz();
+
+/* ============ SOURCES ============ */
+document.getElementById('fsources').innerHTML=SOURCES.map(s=>`<a class="fsrc" href="${s[1]}" target="_blank" rel="noopener">↗ ${s[0]}</a>`).join('');
+
+/* ============ SIMULATION ============ */
+const cv=document.getElementById('simCanvas'),cx=cv.getContext('2d');
+const chartCv=document.getElementById('simChart'),chtx=chartCv.getContext('2d');
+const W=640,H=400,MAXB=60,TARGET_SOFT=40,TARGET_DROUGHT=22;
+let drought=false,running=true,birds=[],seeds=[],gen=0,ticks=0,history=[];
+const TICKS_PER_GEN=40; // generation advances on a timer, not on births
+const rand=(a,b)=>a+Math.random()*(b-a);
+const gauss=()=>(Math.random()+Math.random()+Math.random()-1.5)*0.05; // small heritable variation
+function makeBird(x,y,b){return{id:Math.random().toString(36).slice(2),x:x??rand(20,W-20),y:y??rand(20,H-20),beak:b??rand(0.35,0.95),energy:1,dir:0}}
+function makeSeed(d){const hard=d?Math.random()<0.82:Math.random()<0.45;return{id:Math.random().toString(36).slice(2),x:rand(18,W-18),y:rand(18,H-18),hard,hardness:hard?0.72:0.30,r:hard?5:3.4}}
+function target(){return drought?TARGET_DROUGHT:TARGET_SOFT}
+function reset(){
+  birds=Array.from({length:22},()=>makeBird());
+  seeds=Array.from({length:target()},()=>makeSeed(drought));
+  gen=0;ticks=0;
+  const avg=birds.reduce((s,b)=>s+b.beak,0)/birds.length;
+  history=[{g:0,beak:+avg.toFixed(3)}];
+  running=true;document.getElementById('simPlay').textContent='⏸ Pause';
+}
+reset();
+function step(){
+  ticks++;
+  const eaten=new Set();const surv=[];
+  for(const b of birds){
+    // gentle metabolic cost — larger beaks cost slightly more
+    const en=b.energy-(0.018+b.beak*0.022);
+    if(en<=0)continue;
+    let x=b.x,y=b.y,beak=b.beak,t=null,best=Infinity;
+    for(const s of seeds){if(eaten.has(s.id))continue;const d=(s.x-x)**2+(s.y-y)**2;if(d<best){best=d;t=s}}
+    let ne=en;
+    if(t){
+      const dx=t.x-x,dy=t.y-y,dist=Math.hypot(dx,dy);
+      if(dist<9){
+        if(beak>=t.hardness-0.02){ne=Math.min(1.6,en+(t.hard?0.42:0.28));eaten.add(t.id)}
+        else{x+=rand(-4,4);y+=rand(-4,4)}
+      }else{const st=Math.min(6,dist);x+=dx/dist*st;y+=dy/dist*st}
+    }else{x+=rand(-3,3);y+=rand(-3,3)}
+    x=Math.max(10,Math.min(W-10,x));y=Math.max(10,Math.min(H-10,y));
+    const dir=Math.atan2(y-b.y,x-b.x)||0;
+    surv.push({id:b.id,x,y,beak,energy:ne,dir});
+    // reproduce when well-fed
+    if(ne>1.15&&surv.length<MAXB&&Math.random()<0.14){
+      const childBeak=Math.max(0.28,Math.min(1.02,beak+gauss()));
+      surv.push(makeBird(x+rand(-14,14),y+rand(-14,14),childBeak));
+      surv[surv.length-1].energy=0.75;
+      surv[surv.length-2].energy*=0.7;
+    }
+  }
+  // regrow seeds toward target
+  let ns=seeds.filter(s=>!eaten.has(s.id));
+  const tgt=target();
+  while(ns.length<tgt&&Math.random()<0.9)ns.push(makeSeed(drought));
+  if(ns.length>tgt+8)ns=ns.slice(0,tgt+8);
+  birds=surv;seeds=ns;
+  // record a generation every TICKS_PER_GEN ticks, using current pop avg
+  if(ticks%TICKS_PER_GEN===0&&birds.length){
+    gen++;
+    const avg=birds.reduce((s,b)=>s+b.beak,0)/birds.length;
+    history.push({g:gen,beak:+avg.toFixed(3)});
+    if(history.length>200)history.shift();
+  }
+}
+function drawBird(b){
+  const bl=3+b.beak*9,hue=30+(1-b.beak)*130,body=`hsl(${hue} 55% 45%)`,dark=`hsl(${hue} 55% 32%)`;
+  const flip=Math.cos(b.dir||0)<0;
+  cx.save();cx.translate(b.x*(cv.width/W),b.y*(cv.height/H));if(flip)cx.scale(-1,1);cx.scale(0.5,0.5);
+  cx.fillStyle=dark;cx.beginPath();cx.moveTo(6,20);cx.lineTo(0,14);cx.lineTo(0,26);cx.fill();
+  cx.fillStyle=body;cx.beginPath();cx.ellipse(22,21,14,8,0,0,7);cx.fill();
+  cx.beginPath();cx.ellipse(34,16,7,7,0,0,7);cx.fill();
+  cx.fillStyle='#b45309';cx.beginPath();cx.moveTo(40,16);cx.lineTo(40+bl,14.5);cx.lineTo(40+bl,17.5);cx.fill();
+  cx.fillStyle='#1c1917';cx.beginPath();cx.arc(35,14.5,1.1,0,7);cx.fill();
+  cx.restore();
+}
+function drawChart(){
+  const w=chartCv.width,h=chartCv.height;
+  chtx.clearRect(0,0,w,h);
+  // padding for axes
+  const PL=34,PR=8,PT=8,PB=20;
+  const plotW=w-PL-PR,plotH=h-PT-PB;
+  // Y range fixed to beak range for consistency
+  const yMin=0.3,yMax=1.0;
+  // X range: from first history gen to last (or 0..1 if single point)
+  const xMin=history[0]?history[0].g:0;
+  const xMax=Math.max(xMin+1,history[history.length-1]?history[history.length-1].g:1);
+  // gridlines + Y labels
+  chtx.strokeStyle='hsl(42 20% 84%)';chtx.lineWidth=1;chtx.fillStyle='hsl(158 10% 40%)';chtx.font='10px Inter,system-ui,sans-serif';chtx.textAlign='right';chtx.textBaseline='middle';
+  for(let i=0;i<=4;i++){
+    const v=yMin+(yMax-yMin)*i/4;
+    const py=PT+plotH-(i/4)*plotH;
+    chtx.beginPath();chtx.moveTo(PL,py);chtx.lineTo(w-PR,py);chtx.stroke();
+    chtx.fillText(v.toFixed(1),PL-4,py);
+  }
+  // X labels (start / end generation)
+  chtx.textAlign='left';chtx.textBaseline='top';
+  chtx.fillText('Gen '+xMin,PL,h-PB+4);
+  chtx.textAlign='right';
+  chtx.fillText('Gen '+xMax,w-PR,h-PB+4);
+  if(history.length<2)return;
+  // line
+  chtx.strokeStyle='hsl(28 64% 46%)';chtx.lineWidth=2;chtx.beginPath();
+  history.forEach((pt,i)=>{
+    const px=PL+((pt.g-xMin)/(xMax-xMin))*plotW;
+    const py=PT+plotH-((pt.beak-yMin)/(yMax-yMin))*plotH;
+    i?chtx.lineTo(px,py):chtx.moveTo(px,py);
+  });
+  chtx.stroke();
+  // last-point dot
+  const last=history[history.length-1];
+  const lx=PL+((last.g-xMin)/(xMax-xMin))*plotW;
+  const ly=PT+plotH-((last.beak-yMin)/(yMax-yMin))*plotH;
+  chtx.fillStyle='hsl(28 64% 46%)';chtx.beginPath();chtx.arc(lx,ly,3,0,7);chtx.fill();
+}
+function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  for(const s of seeds){cx.fillStyle=s.hard?'#b45309':'#65a30d';cx.beginPath();cx.arc(s.x*(cv.width/W),s.y*(cv.height/H),s.r,0,7);cx.fill()}
+  for(const b of birds)drawBird(b);
+  if(birds.length===0){cx.fillStyle='hsl(158 20% 13% / .6)';cx.font='20px serif';cx.textAlign='center';cx.fillText('The population has gone extinct. Press Reset.',cv.width/2,cv.height/2)}
+  const pop=birds.length,avg=pop?birds.reduce((s,b)=>s+b.beak,0)/pop:0;
+  document.getElementById('sPop').textContent=pop;document.getElementById('sGen').textContent=gen;document.getElementById('sBeak').textContent=avg.toFixed(2);
+  drawChart();
+}
+let lastStep=0;
+function loop(ts){
+  if(running&&ts-lastStep>60){step();lastStep=ts}
+  draw();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+document.getElementById('simPlay').onclick=()=>{running=!running;document.getElementById('simPlay').textContent=running?'⏸ Pause':'▶ Play'};
+document.getElementById('simReset').onclick=reset;
+document.getElementById('simDrought').onclick=function(){drought=!drought;this.textContent=drought?'☀ Drought: On':'☀ Drought: Off';this.classList.toggle('on',drought)};
+</script>
+</body>
+</html>
