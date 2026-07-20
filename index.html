@@ -20,8 +20,43 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  html{background:var(--bg)}
+  body{background:transparent;color:var(--fg);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
   img{max-width:100%;display:block}
+
+  /* ===== TERRAIN SYSTEM — the page is a scroll through Darwin's own route ===== */
+  #terrainBg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+  .terrain-layer{position:absolute;inset:0;opacity:0;transition:opacity 1.4s cubic-bezier(.22,1,.36,1)}
+  .terrain-layer.on{opacity:1}
+  .terrain-layer .horizon{position:absolute;left:0;right:0;bottom:0;height:40%;opacity:.9}
+  .terra-wash{background:hsl(42 32% 96% / .6)}
+
+  .t-dune{background:linear-gradient(180deg,hsl(43 58% 90%),hsl(38 50% 79%) 55%,hsl(32 44% 66%))}
+  .t-dune .horizon{background:hsl(30 42% 60%);clip-path:polygon(0 62%,9% 52%,24% 60%,38% 46%,54% 58%,69% 43%,84% 56%,100% 49%,100% 100%,0 100%)}
+
+  .t-tide{background:linear-gradient(180deg,hsl(198 58% 80%),hsl(190 58% 63%) 45%,hsl(176 52% 45%))}
+  .t-tide .horizon{background:hsl(174 58% 36%);clip-path:polygon(0 72%,14% 64%,29% 73%,44% 61%,59% 75%,74% 59%,89% 71%,100% 63%,100% 100%,0 100%)}
+  .t-tide .foam{position:absolute;inset:0;background:#fff;opacity:.92;filter:blur(2.5px);box-shadow:0 0 28px 8px rgba(255,255,255,.55);clip-path:polygon(0 72%,14% 64%,29% 73%,44% 61%,59% 75%,74% 59%,89% 71%,100% 63%,100% 69%,89% 77%,74% 65%,59% 81%,44% 67%,29% 79%,14% 70%,0 78%)}
+
+  .t-canopy{background:linear-gradient(180deg,hsl(138 32% 72%),hsl(146 40% 46%) 50%,hsl(154 46% 24%))}
+  .t-canopy .horizon{background:hsl(150 48% 16%);clip-path:polygon(0 56%,8% 40%,16% 56%,24% 34%,32% 56%,40% 37%,48% 56%,56% 31%,64% 56%,72% 39%,80% 56%,88% 35%,96% 56%,100% 46%,100% 100%,0 100%)}
+
+  .t-summit{background:linear-gradient(180deg,hsl(206 42% 82%),hsl(210 30% 63%) 50%,hsl(214 26% 36%))}
+  .t-summit .horizon{background:hsl(216 26% 22%);clip-path:polygon(0 72%,12% 28%,20% 55%,30% 12%,42% 50%,52% 22%,64% 58%,76% 18%,88% 50%,100% 33%,100% 100%,0 100%)}
+
+  .t-reef{background:linear-gradient(180deg,hsl(188 70% 74%),hsl(182 72% 50%) 50%,hsl(198 66% 28%))}
+  .t-reef .horizon{background:hsl(202 62% 20%);clip-path:polygon(0 66%,10% 50%,22% 63%,34% 43%,46% 61%,58% 45%,70% 63%,82% 47%,94% 60%,100% 52%,100% 100%,0 100%)}
+
+  .t-abyss{background:linear-gradient(180deg,hsl(200 46% 20%),hsl(196 52% 11%) 55%,hsl(210 58% 5%))}
+  .t-abyss .horizon{background:hsl(212 58% 3%);clip-path:polygon(0 82%,100% 82%,100% 100%,0 100%)}
+
+  .t-alpine{background:linear-gradient(180deg,hsl(220 26% 90%),hsl(214 22% 68%) 50%,hsl(220 20% 40%))}
+  .t-alpine .horizon{background:#fff;opacity:.92;clip-path:polygon(0 70%,10% 24%,18% 48%,28% 8%,38% 46%,50% 18%,60% 52%,72% 14%,82% 46%,92% 22%,100% 40%,100% 100%,0 100%)}
+
+  .t-sky{background:linear-gradient(180deg,hsl(206 72% 64%),hsl(200 62% 80%) 55%,hsl(48 62% 89%))}
+  .t-sky .horizon{background:hsl(38 52% 83%);clip-path:polygon(0 84%,100% 84%,100% 100%,0 100%)}
+
+  @media(prefers-reduced-motion:reduce){.terrain-layer{transition:none}}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1150px;margin:0 auto;padding:0 24px}
   .font-display{font-family:var(--font-display)}
@@ -156,7 +191,7 @@
   .dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
   /* case study */
-  .case{background:var(--primary);color:var(--primary-fg);overflow:hidden}
+  .case{background:hsl(200 55% 8% / .72);color:var(--primary-fg);overflow:hidden}
   .case h2.title{color:var(--primary-fg)}
   .case p.lead{color:hsl(42 34% 96% / .7)}
   .case .eyebrow{color:var(--accent)}
@@ -222,6 +257,17 @@
 <body>
 <div class="progress" id="progress"></div>
 
+<div id="terrainBg" aria-hidden="true">
+  <div class="terrain-layer t-dune on" data-t="dune"><div class="horizon"></div></div>
+  <div class="terrain-layer t-tide" data-t="tide"><div class="horizon"></div><div class="foam"></div></div>
+  <div class="terrain-layer t-canopy" data-t="canopy"><div class="horizon"></div></div>
+  <div class="terrain-layer t-summit" data-t="summit"><div class="horizon"></div></div>
+  <div class="terrain-layer t-reef" data-t="reef"><div class="horizon"></div></div>
+  <div class="terrain-layer t-abyss" data-t="abyss"><div class="horizon"></div></div>
+  <div class="terrain-layer t-alpine" data-t="alpine"><div class="horizon"></div></div>
+  <div class="terrain-layer t-sky" data-t="sky"><div class="horizon"></div></div>
+</div>
+
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
@@ -233,7 +279,7 @@
 <div class="mobile-menu" id="mobileMenu"></div>
 
 <!-- HERO -->
-<section class="hero paper" id="top">
+<section class="hero paper" id="top" data-terrain="dune">
   <div class="wrap hero-grid">
     <div>
       <div class="badge reveal"><span>✦</span><span>A Digital Exhibit · 1831 — Present</span></div>
@@ -279,7 +325,7 @@
 </section>
 
 <!-- VOYAGE -->
-<section id="voyage" class="reveal">
+<section id="voyage" class="reveal terra-wash" data-terrain="tide">
   <div class="wrap">
     <span class="eyebrow">The Voyage of the Beagle</span>
     <h2 class="title">Five years that changed how we see life</h2>
@@ -292,7 +338,7 @@
 </section>
 
 <!-- CLAIMS -->
-<section id="claims" class="claims reveal">
+<section id="claims" class="claims reveal" data-terrain="canopy">
   <div class="wrap">
     <span class="eyebrow">Darwin's Five Claims</span>
     <h2 class="title">The pillars of evolutionary theory</h2>
@@ -303,7 +349,7 @@
 </section>
 
 <!-- SPECIATION -->
-<section id="speciation" class="reveal">
+<section id="speciation" class="reveal terra-wash" data-terrain="summit">
   <div class="wrap">
     <span class="eyebrow">Claim IV in Depth · Multiplication of Species</span>
     <h2 class="title">How new species form</h2>
@@ -329,7 +375,7 @@
 </section>
 
 <!-- SIMULATION -->
-<section id="simulation" class="reveal">
+<section id="simulation" class="reveal terra-wash" data-terrain="reef">
   <div class="wrap">
     <span class="eyebrow">Interactive · Natural Selection in Action</span>
     <h2 class="title">The Finch Beak Simulation</h2>
@@ -363,7 +409,7 @@
 </section>
 
 <!-- CASE STUDY -->
-<section id="case-study" class="case reveal">
+<section id="case-study" class="case reveal" data-terrain="abyss">
   <div class="wrap">
     <span class="eyebrow">Case Study Spotlight</span>
     <h2 class="title">Darwin in a pandemic</h2>
@@ -376,7 +422,7 @@
 </section>
 
 <!-- CLASSIFICATION -->
-<section id="classification" class="reveal">
+<section id="classification" class="reveal terra-wash" data-terrain="alpine">
   <div class="wrap">
     <span class="eyebrow">Domain Classification Model</span>
     <h2 class="title">How life is organized today</h2>
@@ -396,7 +442,7 @@
 </section>
 
 <!-- QUIZ -->
-<section id="quiz" class="quiz reveal">
+<section id="quiz" class="quiz reveal" data-terrain="sky">
   <div class="wrap">
     <div style="text-align:center;margin-bottom:48px">
       <span class="eyebrow">Test Your Knowledge</span>
@@ -508,6 +554,16 @@ document.getElementById('menuBtn').onclick=()=>{const m=document.getElementById(
 window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>40);document.getElementById('progress').style.transform='scaleX('+scrollY/(document.body.scrollHeight-innerHeight)||0+')'});
 function updProgress(){const m=document.body.scrollHeight-innerHeight;document.getElementById('progress').style.transform='scaleX('+(m>0?scrollY/m:0)+')'}
 window.addEventListener('scroll',updProgress);updProgress();
+
+/* ============ TERRAIN ============ */
+function setTerrain(name){
+  document.querySelectorAll('.terrain-layer').forEach(l=>l.classList.toggle('on',l.dataset.t===name));
+}
+const terrainSections=document.querySelectorAll('[data-terrain]');
+const terrainObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)setTerrain(e.target.dataset.terrain)});
+},{rootMargin:'-45% 0px -45% 0px',threshold:0});
+terrainSections.forEach(el=>terrainObs.observe(el));
 
 /* ============ REVEAL ============ */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'-80px'});
