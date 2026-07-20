@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Darwin's Evolutionary Impact — A Digital Exhibit</title>
+<title>Darwin's Evolutionary Impact: A Digital Exhibit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -24,7 +24,7 @@
   body{background:transparent;color:var(--fg);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
   img{max-width:100%;display:block}
 
-  /* ===== TERRAIN SYSTEM — the page is a scroll through Darwin's own route ===== */
+  /* ===== TERRAIN SYSTEM: the page is a scroll through Darwin's own route ===== */
   #terrainBg{position:fixed;inset:0;z-index:-1;overflow:hidden}
   .terrain-layer{position:absolute;inset:0;opacity:0;transition:opacity 1.6s cubic-bezier(.22,1,.36,1)}
   .terrain-layer.on{opacity:1}
@@ -127,7 +127,7 @@
   .nav-links a:hover{color:var(--accent)}
   .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--accent);transition:.3s}
   .nav-links a:hover::after{width:100%}
-  .menu-btn{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--fg)}
+  .menu-btn{display:none;background:none;border:none;font-size:.95rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:var(--fg)}
   .mobile-menu{display:none;background:hsl(42 34% 95% / .96);border-bottom:1px solid var(--border);padding:12px 20px}
   .mobile-menu a{display:block;padding:10px 0;font-weight:500;color:hsl(158 20% 13% / .8)}
   @media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}}
@@ -170,7 +170,7 @@
   .tl-item:hover{background:hsl(42 30% 97% / .5)}
   .tl-item.active{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid var(--border)}
   .tl-row{display:flex;gap:16px;align-items:flex-start}
-  .tl-pin{font-size:18px;line-height:1}
+  .tl-pin{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:6px}
   .tl-year{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--primary)}
   .tl-place{font-size:.9rem;color:hsl(158 20% 13% / .8);margin-top:2px}
   .voyage-card{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
@@ -201,7 +201,6 @@
   .claim-body{padding:40px}
   .ev-row{display:flex;gap:20px;padding:20px;border:1px solid var(--border);border-radius:12px;background:hsl(42 34% 95% / .5);margin-bottom:20px;transition:.25s}
   .ev-row:hover{border-color:hsl(28 64% 46% / .4);background:var(--bg)}
-  .ev-ic{width:48px;height:48px;border-radius:10px;background:hsl(158 34% 20% / .1);color:var(--primary);display:grid;place-items:center;flex-shrink:0;font-size:20px}
   .ev-row h4{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
   .ev-type{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
   .ev-row p{margin-top:8px;color:hsl(158 20% 13% / .65)}
@@ -210,7 +209,6 @@
   .spec-grid{display:grid;grid-template-columns:1fr;gap:24px}
   @media(min-width:1024px){.spec-grid{grid-template-columns:1fr 1fr}}
   .spec-card{padding:32px}
-  .spec-ic{width:44px;height:44px;border-radius:50%;background:var(--primary);color:var(--primary-fg);display:grid;place-items:center;font-size:20px}
   .spec-card h3{font-family:var(--font-display);font-size:1.6rem;font-weight:600;margin:16px 0}
   .spec-ex{margin-top:20px;padding:16px;border-radius:12px;background:hsl(28 64% 46% / .1);border:1px solid hsl(28 64% 46% / .2)}
   .spec-ex .lab{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
@@ -221,7 +219,7 @@
   .sim-grid{display:grid;grid-template-columns:1fr;gap:20px}
   @media(min-width:1024px){.sim-grid{grid-template-columns:8fr 4fr}}
   .sim-world{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:linear-gradient(180deg,hsl(42 30% 93%),hsl(42 24% 88%))}
-  .sim-canvas{display:block;width:100%;aspect-ratio:8/5}
+  .sim-canvas{display:block;width:100%;aspect-ratio:43/27}
   .sim-ctrls{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:20px;border-top:1px solid var(--border);background:hsl(42 30% 97% / .7)}
   .sim-btn{padding:13px 22px;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);transition:.2s}
   .sim-btn.on{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
@@ -260,7 +258,6 @@
   .dom-btn{width:100%;display:flex;gap:18px;align-items:flex-start;padding:24px;border-radius:12px;border:1px solid var(--border);background:var(--card);text-align:left;cursor:pointer;transition:.25s;margin-bottom:16px}
   .dom-btn:hover{transform:translateY(-2px);border-color:hsl(28 64% 46% / .4)}
   .dom-btn.on{box-shadow:0 4px 12px rgba(0,0,0,.08);border-color:hsl(158 20% 13% / .15)}
-  .dom-ic{width:48px;height:48px;border-radius:10px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
   .dom-btn h4{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
   .dom-btn p{font-size:.88rem;color:hsl(158 20% 13% / .65);margin-top:4px}
   .dom-detail{padding:32px;border-radius:16px;border:1px solid var(--border);background:var(--card)}
@@ -466,9 +463,9 @@
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="brand"><span class="dot">✎</span>Darwin<span class="accent">.</span>Exhibit</a>
+    <a href="#top" class="brand">Darwin<span class="accent">.</span>Exhibit</a>
     <ul class="nav-links" id="navlinks"></ul>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">Menu</button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu"></div>
@@ -477,11 +474,11 @@
 <section class="hero paper" id="top" data-terrain="dune">
   <div class="wrap hero-grid">
     <div>
-      <div class="badge reveal"><span>✦</span><span>A Digital Exhibit · 1831 — Present</span></div>
+      <div class="badge reveal"><span>A Digital Exhibit · 1831 to Present</span></div>
       <h1 class="reveal">Darwin's <em>Evolutionary</em><br>Impact</h1>
-      <p class="sub reveal">Trace Charles Darwin's five claims from the Galápagos to the genome lab — and discover how evolution still reshapes medicine, conservation, and life itself.</p>
+      <p class="sub reveal">Darwin created the theory of evolution. This theory was developed from the core ideas of the Nonconstancy of Species, Descent of a common Ancestor, Gradual Evolution, Multiplication of Species, and Natural Selection.</p>
       <div class="reveal" style="display:flex;gap:20px;flex-wrap:wrap;margin-top:8px">
-        <a href="#voyage" class="btn btn-primary">⚓ Begin the Voyage</a>
+        <a href="#voyage" class="btn btn-primary">Begin the Voyage</a>
         <a href="#claims" class="btn btn-ghost">Explore the Five Claims</a>
       </div>
       <div class="hero-stats reveal">
@@ -512,7 +509,7 @@
         </div>
         <div style="margin-top:20px;text-align:center">
           <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--primary)">Charles Darwin</div>
-          <div style="font-size:.85rem;color:var(--muted-fg);margin-top:4px">1809 — 1882 · Aboard HMS Beagle, 1831–1836</div>
+          <div style="font-size:.85rem;color:var(--muted-fg);margin-top:4px">1809 to 1882 · Aboard HMS Beagle, 1831–1836</div>
         </div>
       </div>
     </div>
@@ -524,7 +521,7 @@
   <div class="wrap">
     <span class="eyebrow">The Voyage of the Beagle</span>
     <h2 class="title">Five years that changed how we see life</h2>
-    <p class="lead">Darwin's thinking was forged by the places he visited. Each landfall handed him a new piece of evidence — from tropical abundance to island isolation.</p>
+    <p class="lead">The places Darwin went to changed his thinking and perspective.</p>
     <div class="voyage-grid">
       <div class="timeline" id="timeline"></div>
       <div id="voyageCard"></div>
@@ -537,7 +534,7 @@
   <div class="wrap">
     <span class="eyebrow">Darwin's Five Claims</span>
     <h2 class="title">The pillars of evolutionary theory</h2>
-    <p class="lead">Each claim takes root in Darwin's own evidence and branches into three pieces of proof — one historical and two modern — connecting his 19th-century observations to today's biology, medicine, and climate.</p>
+    <p class="lead">Each claim takes root in Darwin's own evidence and branches into three pieces of proof: one historical and two modern, connecting his 19th-century observations to today's biology, medicine, and climate.</p>
     <div class="claim-tabs" id="claimTabs"></div>
     <div id="claimPanel"></div>
   </div>
@@ -548,16 +545,14 @@
   <div class="wrap">
     <span class="eyebrow">Claim IV in Depth · Multiplication of Species</span>
     <h2 class="title">How new species form</h2>
-    <p class="lead">Darwin realized species diverge from a common ancestor into new, distinct species. Today we see this through two pathways — allopatric (geographic isolation) and sympatric (within the same area).</p>
+    <p class="lead">Darwin realized species diverge from a common ancestor into new, distinct species. Today we see this through two pathways: allopatric (geographic isolation) and sympatric (within the same area).</p>
     <div class="spec-grid" style="margin-top:48px">
       <div class="card spec-card reveal">
-        <div class="spec-ic">⛰</div>
         <h3>Allopatric Speciation</h3>
         <p style="color:hsl(158 20% 13% / .7)">Physical barriers like rivers, mountains, or human-caused fragmentation separate populations. Isolated groups face different selective pressures, causing distinct species to arise over time.</p>
         <div class="spec-ex"><div class="lab">Real World Example</div><h4>Polar Bears &amp; Grizzly Bears</h4><p>They share a common ancestor but became two species. During the ice ages, grizzlies were geographically isolated in an arctic environment through Pleistocene glaciations (Fonseca et al., 2023). A growing appetite for seals also contributed (PBS WHYY, 2008).</p></div>
       </div>
       <div class="card spec-card reveal">
-        <div class="spec-ic">🍎</div>
         <h3>Sympatric Speciation</h3>
         <p style="color:hsl(158 20% 13% / .7)">New species emerge without physical barriers, often when parts of a population specialize in different resources or food within the same area.</p>
         <div class="spec-ex"><div class="lab">Real World Example</div><h4>The Apple Maggot Fly</h4><p>The North American apple maggot fly diverged within the same area. Originally feeding on hawthorn fruit, some shifted to apple trees introduced in the 19th century. Because young flies favor the scent of the fruit they hatched on, apple-born and hawthorn-born flies split apart (Berkeley UC, n.d.).</p></div>
@@ -574,14 +569,14 @@
   <div class="wrap">
     <span class="eyebrow">Interactive · Natural Selection in Action</span>
     <h2 class="title">The Finch Beak Simulation</h2>
-    <p class="lead">A living model of Darwin's claims. Each bird's beak size determines which seeds it can crack. Flip on a drought and watch selection shift the whole population toward larger beaks — just like the 1977 Galápagos drought.</p>
+    <p class="lead">A living model of Darwin's claims. Each bird's beak size determines which seeds it can crack. Flip on a drought and watch selection shift the whole population toward larger beaks, just like the 1977 Galápagos drought.</p>
     <div class="sim-grid" style="margin-top:48px">
       <div class="sim-world">
-        <canvas id="simCanvas" class="sim-canvas" width="640" height="400"></canvas>
+        <canvas id="simCanvas" class="sim-canvas" width="860" height="540"></canvas>
         <div class="sim-ctrls">
-          <button class="sim-btn go" id="simPlay">⏸ Pause</button>
-          <button class="sim-btn" id="simReset">↻ Reset</button>
-          <button class="sim-btn" id="simDrought">☀ Drought: Off</button>
+          <button class="sim-btn go" id="simPlay">Pause</button>
+          <button class="sim-btn" id="simReset">Reset</button>
+          <button class="sim-btn" id="simDrought">Drought: Off</button>
           <div class="sim-legend">
             <span><span class="dot" style="background:#65a30d"></span>Soft seed (small beak)</span>
             <span><span class="dot" style="background:#b45309"></span>Hard seed (large beak)</span>
@@ -608,7 +603,7 @@
   <div class="wrap">
     <span class="eyebrow">Case Study Spotlight</span>
     <h2 class="title">Darwin in a pandemic</h2>
-    <p class="lead">Darwin's principles aren't relics sitting at the bottom of a textbook — they surfaced in real time during COVID-19. Dive into how each claim played out in the rise of the variants.</p>
+    <p class="lead">Darwin's principles aren't relics sitting at the bottom of a textbook, they surfaced in real time during COVID-19. Dive into how each claim played out in the rise of the variants.</p>
     <div class="case-grid">
       <div id="caseTabs"></div>
       <div id="casePanel"></div>
@@ -621,11 +616,11 @@
   <div class="wrap">
     <span class="eyebrow">Domain Classification Model</span>
     <h2 class="title">How life is organized today</h2>
-    <p class="lead">Carl Linnaeus proposed a classification system in 1753. Two and a half centuries later, genetic technology has rewritten it from physical traits alone to a system grounded in DNA — climb down through the ranks below, from the broadest domain to a single species.</p>
+    <p class="lead">Carl Linnaeus proposed a classification system in 1753. Two and a half centuries later, genetic technology has rewritten it from physical traits alone to a system grounded in DNA. Climb down through the ranks below, from the broadest domain to a single species.</p>
     <div class="card hierarchy">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">The Linnaean Hierarchy — from broadest to most specific</div>
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">The Linnaean Hierarchy, from broadest to most specific</div>
       <div class="hier-row" id="hierRow"></div>
-      <p style="margin-top:20px;font-size:.9rem;color:var(--muted-fg)"><strong>Taxonomy</strong> is the science of naming, describing, and classifying organisms. Modern tools — DNA and RNA sequencing — group species by shared genes, not just shared appearance.</p>
+      <p style="margin-top:20px;font-size:.9rem;color:var(--muted-fg)"><strong>Taxonomy</strong> is the science of naming, describing, and classifying organisms. Modern tools, DNA and RNA sequencing, group species by shared genes, not just shared appearance.</p>
     </div>
     <div class="class-grid">
       <div id="domList"></div>
@@ -642,7 +637,7 @@
     <div style="text-align:center;margin-bottom:48px">
       <span class="eyebrow">Test Your Knowledge</span>
       <h2 class="title">The Evolution Quiz</h2>
-      <p class="lead" style="margin:0 auto">You've climbed from the sand to the summit — five quick questions tying Darwin's claims to the evidence in this exhibit.</p>
+      <p class="lead" style="margin:0 auto">You've climbed from the sand to the summit: five quick questions tying Darwin's claims to the evidence in this exhibit.</p>
     </div>
     <div class="quiz-box" id="quizBox"></div>
   </div>
@@ -653,19 +648,19 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <div class="brand"><span class="dot">✎</span>Darwin<span class="accent">.</span>Exhibit</div>
-        <p style="margin-top:20px;color:hsl(158 20% 13% / .65);max-width:24rem">A digital exhibit tracing Darwin's five claims from the Galápagos to the genome lab — built as a performance assessment for the Evolution unit.</p>
+        <div class="brand">Darwin<span class="accent">.</span>Exhibit</div>
+        <p style="margin-top:20px;color:hsl(158 20% 13% / .65);max-width:24rem">A digital exhibit tracing Darwin's five claims from the Galápagos to the genome lab, built as a performance assessment for the Evolution unit.</p>
       </div>
       <div>
         <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:600">Why does this matter?</h3>
-        <p style="margin-top:16px;color:hsl(158 20% 13% / .65)">Science communicators translate research into understanding. This exhibit shows that evolution isn't just history — it drives antibiotic resistance, shapes how viruses spread, redraws coral reefs, and tells us how all life is connected. Darwin's five claims remain the lens through which we read the living world.</p>
+        <p style="margin-top:16px;color:hsl(158 20% 13% / .65)">Science communicators translate research into understanding. This exhibit shows that evolution isn't just history. It drives antibiotic resistance, shapes how viruses spread, redraws coral reefs, and tells us how all life is connected. Darwin's five claims remain the lens through which we read the living world.</p>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr;gap:40px;padding:40px 0" class="fsrc-wrap">
       <div><div class="eyebrow">Sources &amp; Credibility</div><p style="margin-top:12px;font-size:.85rem;color:var(--muted-fg);max-width:28rem">Following Stanford Guidelines for Web Credibility, all content is drawn from peer-reviewed research, established educational institutions, and primary texts.</p></div>
       <div class="fsources" id="fsources"></div>
     </div>
-    <div class="fmeta"><p>© 1831 — Present · A Digital Exhibit on Darwin's Evolutionary Impact.</p><p style="font-style:italic">"Nothing in biology makes sense except in the light of evolution."</p></div>
+    <div class="fmeta"><p>© 1831 to Present · A Digital Exhibit on Darwin's Evolutionary Impact.</p><p style="font-style:italic">"Nothing in biology makes sense except in the light of evolution."</p></div>
   </div>
 </footer>
 
@@ -673,68 +668,68 @@
 /* ============ DATA ============ */
 const NAV=[["Voyage","#voyage"],["Five Claims","#claims"],["Simulation","#simulation"],["Case Study","#case-study"],["Classification","#classification"],["Speciation","#speciation"],["Quiz","#quiz"]];
 const VOYAGE=[
-  {y:"1831",p:"Plymouth, England",c:"50.4°N",t:"The Departure",x:"Darwin, age 22, joins HMS Beagle as naturalist on a five-year survey voyage. The ship carries him into the questions that will define his life.",col:"200 45% 42%"},
-  {y:"1832",p:"Cape Verde & Brazil",c:"14.9°N",t:"The Tropics Awaken",x:"In the rainforests of Bahia, Darwin is staggered by the sheer diversity of life — the first glimpse that species vary with environment.",col:"43 74% 56%"},
-  {y:"1833",p:"Patagonia, Argentina",c:"41.0°S",t:"Fossils of Giants",x:"He unearths giant extinct mammal fossils — glyptodons and ground sloths. The realization dawns: species are not eternal.",col:"28 64% 46%"},
-  {y:"1834",p:"Tierra del Fuego",c:"55.0°S",t:"The Edge of the World",x:"Harsh, windswept islands reveal how environment shapes the creatures that survive there. Observation sharpens into a theory of adaptation.",col:"200 45% 42%"},
-  {y:"1835",p:"Galápagos Islands",c:"0.7°S",t:"The Finches & Tortoises",x:"Mockingbirds and finches differ from island to island; tortoises carry island-specific shells. The sparks of natural selection are struck here.",col:"28 64% 46%"},
-  {y:"1836",p:"Return to England",c:"50.4°N",t:"A Theory Takes Shape",x:"Darwin returns and spends 23 years gathering evidence before publishing On the Origin of Species in 1859 — biology is never the same.",col:"158 40% 30%"}
+  {y:"1831",p:"Plymouth, England",c:"50.4°N",t:"The Departure",x:"When Darwin was 22 years old, he joined the HMS Beagle as a naturalist on a 5 year journey. Because of his journey, he asked questions that changed his life.",col:"200 45% 42%"},
+  {y:"1832",p:"Cape Verde & Brazil",c:"14.9°N",t:"The Tropics Awaken",x:"Darwin was staggered by the various amounts of diversity in life. This led to his idea of species vary with environment.",col:"43 74% 56%"},
+  {y:"1833",p:"Patagonia, Argentina",c:"41.0°S",t:"Fossils of Giants",x:"He dug up extinct mammal fossils such as the ground sloths and glyptodons. He learned that species are not eternal as mentioned by other scientists during this time period.",col:"28 64% 46%"},
+  {y:"1834",p:"Tierra del Fuego",c:"55.0°S",t:"The Edge of the World",x:"at Tierra del Fuego, Darwin learned that the environment creatures thrive in are the reasons for why they mutated/evolved.",col:"200 45% 42%"},
+  {y:"1835",p:"Galápagos Islands",c:"0.7°S",t:"The Finches & Tortoises",x:"As he looked into the galapagos islands, he learned that birds differed in different but close islands. He learned that natural selection was the cause of this.",col:"28 64% 46%"},
+  {y:"1836",p:"Return to England",c:"50.4°N",t:"A Theory Takes Shape",x:"Darwin finally comes back to England, and publishes the origin of Species.",col:"158 40% 30%"}
 ];
 const CLAIMS=[
-  {id:"I",title:"Nonconstancy of Species",tag:"Species are not fixed — they change over time.",icon:"⚗",blurb:"Darwin broke from the idea that species were created once and never altered. Life is fluid — populations shift, and species can vanish. Today, evolution happens fast enough to watch in real time.",ev:[
-    {ic:"⚗",t:"Antibiotic-Resistant Bacteria",ty:"Modern · Medicine",x:"Within decades of penicillin's introduction, MRSA evolved resistance. Mutations that neutralize drugs are inherited, so resistant strains rapidly dominate under antibiotic pressure."},
-    {ic:"🦴",t:"Darwin's Patagonian Fossils",ty:"Historical · Paleontology",x:"In 1833 Darwin unearthed giant extinct glyptodons and ground sloths resembling living armadillos. Their disappearance proved species are not permanent."},
-    {ic:"📈",t:"The Peppered Moth",ty:"Modern · Industrial",x:"During Britain's Industrial Revolution, Biston betularia shifted from pale to dark as soot blackened the trees, and back again as air cleared."}
+  {id:"I",title:"Nonconstancy of Species",tag:"Species are not fixed. They change over time.",blurb:"Darwin broke from the idea that species were created once and never altered. Life is fluid, populations shift, and species can vanish. Today, evolution happens fast enough to watch in real time.",ev:[
+    {t:"Antibiotic-Resistant Bacteria",ty:"Modern · Medicine",x:"Within decades of penicillin's introduction, MRSA evolved resistance. Mutations that neutralize drugs are inherited, so resistant strains rapidly dominate under antibiotic pressure (CDC, 2023)."},
+    {t:"Darwin's Patagonian Fossils",ty:"Historical · Paleontology",x:"In 1833 Darwin unearthed giant extinct glyptodons and ground sloths resembling living armadillos. Their disappearance proved species are not permanent (Darwin, 1859)."},
+    {t:"The Peppered Moth",ty:"Modern · Industrial",x:"During Britain's Industrial Revolution, Biston betularia shifted from pale to dark as soot blackened the trees, and back again as air cleared (Cook & Saccheri, 2013)."}
   ]},
-  {id:"II",title:"Descent from a Common Ancestor",tag:"All life shares a deep, branching ancestry.",icon:" branching".trim(),blurb:"Every living thing is a cousin at some remove. The same bones, the same genes, and a chain of fossils all point back to shared ancestors.",ev:[
-    {ic:"🦴",t:"Tiktaalik — A Fish With a Neck",ty:"Historical · Transitional Fossil",x:"Discovered in 2004, Tiktaalik shows fish scales and fins alongside a mobile neck and wrist bones — the predicted intermediate between fish and land vertebrates."},
-    {ic:"🧬",t:"Human–Chimpanzee DNA",ty:"Modern · Genomics",x:"Humans and chimpanzees share about 98.8% of their DNA, and the same universal genetic code runs through every living thing."},
-    {ic:"🌿",t:"Homologous Limb Bones",ty:"Modern · Comparative Anatomy",x:"The same one upper bone, two lower bones, and five digits appear in a human arm, whale flipper, bat wing, and cat leg — one ancestral blueprint reshaped."}
+  {id:"II",title:"Descent from a Common Ancestor",tag:"All life shares a deep, branching ancestry.",blurb:"Every living thing is a cousin at some remove. The same bones, the same genes, and a chain of fossils all point back to shared ancestors.",ev:[
+    {t:"Tiktaalik: A Fish With a Neck",ty:"Historical · Transitional Fossil",x:"Discovered in 2004, Tiktaalik shows fish scales and fins alongside a mobile neck and wrist bones, the predicted intermediate between fish and land vertebrates (Daeschler, Shubin & Jenkins, 2006)."},
+    {t:"Human–Chimpanzee DNA",ty:"Modern · Genomics",x:"Humans and chimpanzees share about 98.8% of their DNA, and the same universal genetic code runs through every living thing (Chimpanzee Sequencing and Analysis Consortium, 2005)."},
+    {t:"Homologous Limb Bones",ty:"Modern · Comparative Anatomy",x:"The same one upper bone, two lower bones, and five digits appear in a human arm, whale flipper, bat wing, and cat leg, one ancestral blueprint reshaped (Understanding Evolution, UC Berkeley)."}
   ]},
-  {id:"III",title:"Gradual Evolution",tag:"Change accumulates slowly, generation by generation.",icon:"📈",blurb:"Evolution is rarely a sudden leap. Across many generations, small inherited differences stack up until a population looks nothing like where it began.",ev:[
-    {ic:"📈",t:"Galápagos Finch Beaks",ty:"Modern · Long-term Study",x:"The Grants measured finches on Daphne Major for 40 years. After the 1977 drought, average beak depth rose as only large-beaked birds could crack tough seeds."},
-    {ic:"🐕",t:"Artificial Selection in Dogs",ty:"Modern · Breeding",x:"From a single wolf-like ancestor, selective breeding produced Chihuahuas and Great Danes — a sped-up model of gradual selection."},
-    {ic:"🦴",t:"Whales From Land Mammals",ty:"Historical · Fossil Series",x:"A fossil chain — Pakicetus, Ambulocetus, Rodhocetus — traces whales over millions of years from four-legged land mammals to aquatic giants."}
+  {id:"III",title:"Gradual Evolution",tag:"Change accumulates slowly, generation by generation.",blurb:"Evolution is rarely a sudden leap. Across many generations, small inherited differences stack up until a population looks nothing like where it began.",ev:[
+    {t:"Galápagos Finch Beaks",ty:"Modern · Long-term Study",x:"The Grants measured finches on Daphne Major for 40 years. After the 1977 drought, average beak depth rose as only large-beaked birds could crack tough seeds (Grant & Grant, 2002)."},
+    {t:"Artificial Selection in Dogs",ty:"Modern · Breeding",x:"From a single wolf-like ancestor, selective breeding produced Chihuahuas and Great Danes, a sped-up model of gradual selection (Understanding Evolution, UC Berkeley)."},
+    {t:"Whales From Land Mammals",ty:"Historical · Fossil Series",x:"A fossil chain (Pakicetus, Ambulocetus, Rodhocetus) traces whales over millions of years from four-legged land mammals to aquatic giants (Thewissen et al., 2001)."}
   ]},
-  {id:"IV",title:"Multiplication of Species",tag:"One ancestor can branch into many new species.",icon:"/div".replace("/","branching"),blurb:"When populations become isolated in different environments, they adapt apart until they can no longer interbreed — one species becomes many.",ev:[
-    {ic:"fork".replace("fork","/div").replace("/div","🌱"),t:"Galápagos Adaptive Radiation",ty:"Modern · Islands",x:"A single ancestral finch colonized the Galápagos and diversified into 18+ species, each with beaks suited to its island's food."},
-    {ic:"🌿",t:"Ring Species of Salamanders",ty:"Modern · Geography",x:"Ensatina salamanders spread around California's Central Valley in a ring. Neighbors interbreed, but where the ring closes they are reproductively distinct."},
-    {ic:"🌊",t:"Cichlid Fish in Rift Lakes",ty:"Modern · Lakes",x:"In Lake Victoria, hundreds of cichlid species evolved from a common ancestor in under 15,000 years, each exploiting a different niche."}
+  {id:"IV",title:"Multiplication of Species",tag:"One ancestor can branch into many new species.",blurb:"When populations become isolated in different environments, they adapt apart until they can no longer interbreed, and one species becomes many.",ev:[
+    {t:"Galápagos Adaptive Radiation",ty:"Modern · Islands",x:"A single ancestral finch colonized the Galápagos and diversified into 18+ species, each with beaks suited to its island's food (Grant & Grant, 2008)."},
+    {t:"Ring Species of Salamanders",ty:"Modern · Geography",x:"Ensatina salamanders spread around California's Central Valley in a ring. Neighbors interbreed, but where the ring closes they are reproductively distinct (Wake, 1997)."},
+    {t:"Cichlid Fish in Rift Lakes",ty:"Modern · Lakes",x:"In Lake Victoria, hundreds of cichlid species evolved from a common ancestor in under 15,000 years, each exploiting a different niche (Seehausen, 2006)."}
   ]},
-  {id:"V",title:"Natural Selection",tag:"The best-suited variants survive and reproduce.",icon:"🔍",blurb:"Darwin's engine of change. Individuals with traits that fit the conditions survive and pass them on. As climates shift, selection shifts with them — in real time.",ev:[
-    {ic:"❄",t:"Mosquitoes and a Warming Spring",ty:"Modern · Climate",x:"Pitcher-plant mosquitoes have evolved to respond to longer, warmer days earlier. Bradshaw and Holzapfel documented the genetic shift as climates warm."},
-    {ic:"📈",t:"Threespine Stickleback Adaptation",ty:"Modern · Environment",x:"As stickleback recolonized freshwater from the sea, they repeatedly lost armor plates and changed body shape to suit each new lake."},
-    {ic:"🌊",t:"Coral & Climate Pressure",ty:"Modern · Oceans",x:"Warming oceans are a selective force: some coral populations are evolving greater heat tolerance while less-tolerant colonies bleach and die."}
+  {id:"V",title:"Natural Selection",tag:"The best-suited variants survive and reproduce.",blurb:"Darwin's engine of change. Individuals with traits that fit the conditions survive and pass them on. As climates shift, selection shifts with them, in real time.",ev:[
+    {t:"Mosquitoes and a Warming Spring",ty:"Modern · Climate",x:"Pitcher-plant mosquitoes have evolved to respond to longer, warmer days earlier. Bradshaw and Holzapfel documented the genetic shift as climates warm (Bradshaw & Holzapfel, 2001)."},
+    {t:"Threespine Stickleback Adaptation",ty:"Modern · Environment",x:"As stickleback recolonized freshwater from the sea, they repeatedly lost armor plates and changed body shape to suit each new lake (Bell & Foster, 1994)."},
+    {t:"Coral & Climate Pressure",ty:"Modern · Oceans",x:"Warming oceans are a selective force: some coral populations are evolving greater heat tolerance while less-tolerant colonies bleach and die (NOAA, 2022)."}
   ]}
 ];
 const CASE=[
-  {k:"overview",l:"Overview",ic:"🔬",t:"The Evolution of COVID-19 Variants",b:"When SARS-CoV-2 emerged in 2019, there was a single viral strain. By 2021, dozens of variants circulated. By 2022, Omicron had taken over the globe. This is Darwin's machinery running in real time.",s:["50+","mutations in Omicron vs. the original strain"]},
-  {k:"nonconstancy",l:"Nonconstancy",ic:"🦠",t:"The virus never stays the same",b:"Every time SARS-CoV-2 copies itself, copying errors produce mutations. Alpha, Delta, and Omicron were each changed descendants. Viruses evolve millions of times faster than animals.",s:["≈2","mutations per month the virus accrued globally"]},
-  {k:"selection",l:"Selection",ic:"🛡",t:"Vaccines became the selecting environment",b:"When vaccines taught immune systems to recognize the virus, variants best at evading immunity survived and spread. Omicron carried 50+ mutations on its spike protein. It didn't 'try' to escape — selection favored whatever could.",s:["Omicron","outcompeted Delta within weeks worldwide"]},
-  {k:"multiplication",l:"Multiplication",ic:"fork".replace("fork"," branching"),t:"Isolated populations forked apart",b:"Variants arose in different regions — Alpha in the UK, Beta in South Africa, Delta in India, Omicron in southern Africa. Each population applied different pressures, so the virus evolved into distinct lineages.",s:["5+","major named lineages from one ancestor"]},
-  {k:"global",l:"Global Map",ic:"🌍",t:"Where each variant first dominated",b:"The geography of variants mirrors the geography of speciation: isolated populations under different conditions produce distinct lineages.",s:["4","continents where distinct variants first took hold"]}
+  {k:"overview",l:"Overview",t:"The Evolution of COVID-19 Variants",b:"When SARS-CoV-2 emerged in 2019, there was a single viral strain. By 2021, dozens of variants circulated. By 2022, Omicron had taken over the globe. This is Darwin's machinery running in real time (WHO, 2023).",s:["50+","mutations in Omicron vs. the original strain"]},
+  {k:"nonconstancy",l:"Nonconstancy",t:"The virus never stays the same",b:"Every time SARS-CoV-2 copies itself, copying errors produce mutations. Alpha, Delta, and Omicron were each changed descendants. Viruses evolve millions of times faster than animals (WHO, 2023).",s:["≈2","mutations per month the virus accrued globally"]},
+  {k:"selection",l:"Selection",t:"Vaccines became the selecting environment",b:"When vaccines taught immune systems to recognize the virus, variants best at evading immunity survived and spread. Omicron carried 50+ mutations on its spike protein. It didn't 'try' to escape. Selection favored whatever could (Markov et al., 2023).",s:["Omicron","outcompeted Delta within weeks worldwide"]},
+  {k:"multiplication",l:"Multiplication",t:"Isolated populations forked apart",b:"Variants arose in different regions: Alpha in the UK, Beta in South Africa, Delta in India, Omicron in southern Africa. Each population applied different pressures, so the virus evolved into distinct lineages (WHO, 2023).",s:["5+","major named lineages from one ancestor"]},
+  {k:"global",l:"Global Map",t:"Where each variant first dominated",b:"The geography of variants mirrors the geography of speciation: isolated populations under different conditions produce distinct lineages (WHO, 2023).",s:["4","continents where distinct variants first took hold"]}
 ];
 const HIER=["Domain","Kingdom","Phylum","Class","Order","Family","Genus","Species"];
 const DOMAINS=[
-  {key:"bacteria",name:"Bacteria",ic:"🐛",col:"43 74% 56%",sum:"Unicellular prokaryotes with no nucleus; nearly everywhere on Earth.",traits:["Single-celled, no nucleus (prokaryotic)","Cell walls made of peptidoglycan","Reproduce asexually via binary fission","Phyla: Proteobacteria, Cyanobacteria, Gram-positive"],ex:"Escherichia coli — the gut bacterium studied worldwide"},
-  {key:"archaea",name:"Archaea",ic:"🧬",col:"340 55% 48%",sum:"Single-celled prokaryotes closer to eukaryotes than bacteria; thrive in extremes.",traits:["Single-celled, no nucleus","No peptidoglycan in cell walls","Survive in extremes — hot springs, salt, acid","Eukaryotes evolved from an archaeal ancestor"],ex:"Methanogens — archaea that produce methane"},
-  {key:"eukarya",name:"Eukarya",ic:"🌲",col:"158 40% 30%",sum:"Cells with a nucleus and organelles — from protists to plants, fungi, and animals.",traits:["Cells contain a nucleus and organelles","Generally larger than prokaryotes","Reproduce by mitosis or meiosis","Kingdoms: Protista, Fungi, Plantae, Animalia"],ex:"Homo sapiens — one species among millions of eukaryotes"}
+  {key:"bacteria",name:"Bacteria",col:"43 74% 56%",sum:"Unicellular prokaryotes with no nucleus; nearly everywhere on Earth.",traits:["Single-celled, no nucleus (prokaryotic)","Cell walls made of peptidoglycan","Reproduce asexually via binary fission","Phyla: Proteobacteria, Cyanobacteria, Gram-positive"],ex:"Escherichia coli, the gut bacterium studied worldwide"},
+  {key:"archaea",name:"Archaea",col:"340 55% 48%",sum:"Single-celled prokaryotes closer to eukaryotes than bacteria; thrive in extremes.",traits:["Single-celled, no nucleus","No peptidoglycan in cell walls","Survive in extremes: hot springs, salt, acid","Eukaryotes evolved from an archaeal ancestor"],ex:"Methanogens, archaea that produce methane"},
+  {key:"eukarya",name:"Eukarya",col:"158 40% 30%",sum:"Cells with a nucleus and organelles, from protists to plants, fungi, and animals.",traits:["Cells contain a nucleus and organelles","Generally larger than prokaryotes","Reproduce by mitosis or meiosis","Kingdoms: Protista, Fungi, Plantae, Animalia"],ex:"Homo sapiens, one species among millions of eukaryotes"}
 ];
 const KINGDOMS=[
-  {n:"Plantae",ic:"🍃",x:"Multicellular, autotrophic, photosynthesizing. Cell walls of cellulose.",e:"Trees, grasses, flowers, mosses"},
-  {n:"Animalia",ic:"🐛",x:"Multicellular, heterotrophic, motile. No cell walls. The kingdom humans share.",e:"Humans, lions, birds, fish"},
-  {n:"Fungi",ic:"🍄",x:"Mostly multicellular, heterotrophic decomposers. Cell walls of chitin.",e:"Mushrooms, yeast, mold"},
-  {n:"Protista",ic:"🔬",x:"Mostly single-celled eukaryotes that don't fit the other kingdoms.",e:"Amoeba, paramecium, algae"}
+  {n:"Plantae",x:"Multicellular, autotrophic, photosynthesizing. Cell walls of cellulose.",e:"Trees, grasses, flowers, mosses"},
+  {n:"Animalia",x:"Multicellular, heterotrophic, motile. No cell walls. The kingdom humans share.",e:"Humans, lions, birds, fish"},
+  {n:"Fungi",x:"Mostly multicellular, heterotrophic decomposers. Cell walls of chitin.",e:"Mushrooms, yeast, mold"},
+  {n:"Protista",x:"Mostly single-celled eukaryotes that don't fit the other kingdoms.",e:"Amoeba, paramecium, algae"}
 ];
 const QUIZ=[
-  {q:"Which of Darwin's claims is most directly demonstrated by antibiotic-resistant bacteria like MRSA?",o:["Descent from a common ancestor","Nonconstancy of species","Gradual evolution","Multiplication of species"],a:1,e:"Bacteria evolving resistance within decades show species are not fixed — the core of Darwin's first claim."},
-  {q:"Tiktaalik, with both fish scales and a mobile neck, is evidence for which claim?",o:["Descent from a common ancestor","Natural selection","Multiplication of species","Nonconstancy of species"],a:0,e:"Tiktaalik is a transitional fossil — a predicted 'missing link' between fish and land vertebrates."},
-  {q:"In the finch simulation, why does a drought shift the population toward larger beaks?",o:["Birds consciously grow larger beaks when thirsty","Large-beaked birds crack the remaining hard seeds and survive to reproduce","The drought mutates beak genes directly","Small-beaked birds migrate away"],a:1,e:"Selection favors the traits that fit the environment — large beaks crack hard seeds, so those birds reproduce."},
+  {q:"Which of Darwin's claims is most directly demonstrated by antibiotic-resistant bacteria like MRSA?",o:["Descent from a common ancestor","Nonconstancy of species","Gradual evolution","Multiplication of species"],a:1,e:"Bacteria evolving resistance within decades show species are not fixed. That's the core of Darwin's first claim."},
+  {q:"Tiktaalik, with both fish scales and a mobile neck, is evidence for which claim?",o:["Descent from a common ancestor","Natural selection","Multiplication of species","Nonconstancy of species"],a:0,e:"Tiktaalik is a transitional fossil, a predicted 'missing link' between fish and land vertebrates."},
+  {q:"In the finch simulation, why does a drought shift the population toward larger beaks?",o:["Birds consciously grow larger beaks when thirsty","Large-beaked birds crack the remaining hard seeds and survive to reproduce","The drought mutates beak genes directly","Small-beaked birds migrate away"],a:1,e:"Selection favors the traits that fit the environment. Large beaks crack hard seeds, so those birds reproduce."},
   {q:"How has genetic technology changed modern taxonomy?",o:["It replaced the hierarchy entirely","It allows grouping by DNA and RNA, not just physical traits","It proved all species are identical","It removed the domain rank"],a:1,e:"DNA and RNA sequencing reveal true evolutionary relationships that appearance alone can't show."},
   {q:"Omicron outcompeting Delta after vaccines rolled out is an example of…",o:["Gradual evolution only","Natural selection favoring immune-evasive variants","Nonconstancy only","Artificial selection"],a:1,e:"Vaccines became the selecting environment; variants that could evade immunity survived and spread."}
 ];
 const SOURCES=[
-  ["Understanding Evolution — UC Berkeley","https://evolution.berkeley.edu"],
+  ["Understanding Evolution, UC Berkeley","https://evolution.berkeley.edu"],
   ["On the Origin of Species (1859)","https://www.gutenberg.org/ebooks/1228"],
   ["The Grants' Finches of Daphne Major","https://www.allaboutbirds.org/news/"],
   ["NIH: Antibiotic Resistance","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4235121/"],
@@ -767,7 +762,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 /* ============ VOYAGE ============ */
 let vActive=0;
 function renderVoyage(){
-  document.getElementById('timeline').innerHTML=VOYAGE.map((s,i)=>`<button class="tl-item ${i===vActive?'active':''}" onclick="setVoyage(${i})"><div class="tl-row"><span class="tl-pin" style="color:hsl(${s.col})">📍</span><div><div class="tl-year">${s.y} <span style="font-size:.8rem;color:var(--muted-fg);font-weight:400">${s.c}</span></div><div class="tl-place">${s.p}</div></div></div></button>`).join('');
+  document.getElementById('timeline').innerHTML=VOYAGE.map((s,i)=>`<button class="tl-item ${i===vActive?'active':''}" onclick="setVoyage(${i})"><div class="tl-row"><span class="tl-pin" style="background:hsl(${s.col})"></span><div><div class="tl-year">${s.y} <span style="font-size:.8rem;color:var(--muted-fg);font-weight:400">${s.c}</span></div><div class="tl-place">${s.p}</div></div></div></button>`).join('');
   const s=VOYAGE[vActive];
   document.getElementById('voyageCard').innerHTML=`<div class="voyage-card"><div class="voyage-head" style="background:linear-gradient(135deg,hsl(${s.col} / .85),hsl(158 34% 20% / .6))"><div class="yr">${s.y}</div><div class="pl">${s.p}</div></div><div class="voyage-body"><h3>${s.t}</h3><p>${s.x}</p><div class="voyage-bar"><i style="width:${((vActive+1)/VOYAGE.length*100)}%;background:hsl(${s.col})"></i></div></div></div>`;
 }
@@ -779,7 +774,7 @@ let cActive=0;
 function renderClaims(){
   document.getElementById('claimTabs').innerHTML=CLAIMS.map((c,i)=>`<button class="claim-tab ${i===cActive?'active':''}" onclick="setClaim(${i})"><span class="n" style="${i===cActive?'opacity:.8':'color:var(--accent)'}">${c.id}</span>${c.title}</button>`).join('');
   const c=CLAIMS[cActive];
-  document.getElementById('claimPanel').innerHTML=`<div class="claim-panel"><div class="claim-head"><div style="display:flex;align-items:center;gap:12px"><span class="big">${c.id}</span><div style="width:44px;height:44px;border-radius:50%;background:var(--primary);color:var(--primary-fg);display:grid;place-items:center;font-size:20px">${c.icon.length>2?'🔍':c.icon}</div></div><h3>${c.title}</h3><div class="tag">${c.tag}</div><div class="blurb">${c.blurb}</div></div><div class="claim-body"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:20px">Three Pieces of Evidence</div>${c.ev.map(e=>`<div class="ev-row"><div class="ev-ic">${e.ic}</div><div><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px"><h4>${e.t}</h4><span class="ev-type">${e.ty}</span></div><p>${e.x}</p></div></div>`).join('')}</div></div>`;
+  document.getElementById('claimPanel').innerHTML=`<div class="claim-panel"><div class="claim-head"><span class="big">${c.id}</span><h3>${c.title}</h3><div class="tag">${c.tag}</div><div class="blurb">${c.blurb}</div></div><div class="claim-body"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:20px">Three Pieces of Evidence</div>${c.ev.map(e=>`<div class="ev-row"><div><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px"><h4>${e.t}</h4><span class="ev-type">${e.ty}</span></div><p>${e.x}</p></div></div>`).join('')}</div></div>`;
 }
 function setClaim(i){cActive=i;renderClaims()}
 renderClaims();
@@ -787,24 +782,24 @@ renderClaims();
 /* ============ CASE ============ */
 let csActive="overview";
 function renderCase(){
-  document.getElementById('caseTabs').innerHTML=CASE.map(t=>`<button class="case-tab ${t.k===csActive?'on':''}" onclick="setCase('${t.k}')"><span style="font-size:20px">${t.ic.length>2?'🔬':t.ic}</span><span>${t.l}</span></button>`).join('');
+  document.getElementById('caseTabs').innerHTML=CASE.map(t=>`<button class="case-tab ${t.k===csActive?'on':''}" onclick="setCase('${t.k}')"><span>${t.l}</span></button>`).join('');
   const t=CASE.find(x=>x.k===csActive);
-  document.getElementById('casePanel').innerHTML=`<div class="case-panel"><div style="display:flex;gap:12px;align-items:center;color:var(--accent)"><span style="font-size:22px">${t.ic.length>2?'🔬':t.ic}</span><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em">${t.l}</span></div><h3>${t.t}</h3><p>${t.b}</p><div class="case-stat"><div class="n">${t.s[0]}</div><div class="t">${t.s[1]}</div></div></div>`;
+  document.getElementById('casePanel').innerHTML=`<div class="case-panel"><div style="display:flex;gap:12px;align-items:center;color:var(--accent)"><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em">${t.l}</span></div><h3>${t.t}</h3><p>${t.b}</p><div class="case-stat"><div class="n">${t.s[0]}</div><div class="t">${t.s[1]}</div></div></div>`;
 }
 function setCase(k){csActive=k;renderCase()}
 renderCase();
 
 /* ============ CLASSIFICATION ============ */
-document.getElementById('hierRow').innerHTML=HIER.map((l,i)=>`<div style="display:flex;align-items:center;gap:8px"><div class="hier-chip" style="background:hsl(158 34% 20% / ${0.08+i*0.07})">${l}</div>${i<HIER.length-1?'<span class="hier-arr">→</span>':''}</div>`).join('');
+document.getElementById('hierRow').innerHTML=HIER.map((l,i)=>`<div style="display:flex;align-items:center;gap:8px"><div class="hier-chip" style="background:hsl(158 34% 20% / ${0.08+i*0.07})">${l}</div>${i<HIER.length-1?'<span class="hier-arr">&gt;</span>':''}</div>`).join('');
 let dom="eukarya";
 function renderDom(){
-  document.getElementById('domList').innerHTML=DOMAINS.map(d=>`<button class="dom-btn ${d.key===dom?'on':''}" onclick="setDom('${d.key}')"><div class="dom-ic" style="background:hsl(${d.col} / .16);color:hsl(${d.col})">${d.ic}</div><div><h4>${d.name}</h4><p>${d.sum}</p></div></button>`).join('');
+  document.getElementById('domList').innerHTML=DOMAINS.map(d=>`<button class="dom-btn ${d.key===dom?'on':''}" onclick="setDom('${d.key}')"><div><h4>${d.name}</h4><p>${d.sum}</p></div></button>`).join('');
   const d=DOMAINS.find(x=>x.key===dom);
-  document.getElementById('domDetail').innerHTML=`<div class="dom-detail"><div style="display:flex;gap:16px;align-items:center"><div class="dom-ic" style="width:56px;height:56px;background:hsl(${d.col} / .16);color:hsl(${d.col});font-size:28px">${d.ic}</div><div><div style="font-size:11px;text-transform:uppercase;color:var(--muted-fg)">Domain</div><h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:600">${d.name}</h3></div></div><div style="margin-top:28px"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:12px">Defining Traits</div><ul style="list-style:none">${d.traits.map(t=>`<li style="display:flex;gap:12px;margin-bottom:10px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:hsl(${d.col});margin-top:7px"></span><span style="color:hsl(158 20% 13% / .75)">${t}</span></li>`).join('')}</ul></div><div style="margin-top:28px;padding:16px;border-radius:12px;background:hsl(42 22% 87% / .6);border:1px solid var(--border)"><div style="font-size:11px;text-transform:uppercase;color:var(--muted-fg)">Example organism</div><div style="font-family:var(--font-display);font-size:1.1rem;font-style:italic;margin-top:4px">${d.ex}</div></div></div>`;
+  document.getElementById('domDetail').innerHTML=`<div class="dom-detail"><div style="display:flex;gap:16px;align-items:center"><div><div style="font-size:11px;text-transform:uppercase;color:var(--muted-fg)">Domain</div><h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:600">${d.name}</h3></div></div><div style="margin-top:28px"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:12px">Defining Traits</div><ul style="list-style:none">${d.traits.map(t=>`<li style="display:flex;gap:12px;margin-bottom:10px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:hsl(${d.col});margin-top:7px"></span><span style="color:hsl(158 20% 13% / .75)">${t}</span></li>`).join('')}</ul></div><div style="margin-top:28px;padding:16px;border-radius:12px;background:hsl(42 22% 87% / .6);border:1px solid var(--border)"><div style="font-size:11px;text-transform:uppercase;color:var(--muted-fg)">Example organism</div><div style="font-family:var(--font-display);font-size:1.1rem;font-style:italic;margin-top:4px">${d.ex}</div></div></div>`;
 }
 function setDom(k){dom=k;renderDom()}
 renderDom();
-document.getElementById('kingGrid').innerHTML=KINGDOMS.map(k=>`<div class="king-card"><div style="width:44px;height:44px;border-radius:10px;background:hsl(28 64% 46% / .16);color:var(--accent);display:grid;place-items:center;font-size:22px">${k.ic}</div><h4>${k.n}</h4><p>${k.x}</p><div style="font-size:11px;color:var(--muted-fg);margin-top:8px"><strong>Examples: </strong>${k.e}</div></div>`).join('');
+document.getElementById('kingGrid').innerHTML=KINGDOMS.map(k=>`<div class="king-card"><h4>${k.n}</h4><p>${k.x}</p><div style="font-size:11px;color:var(--muted-fg);margin-top:8px"><strong>Examples: </strong>${k.e}</div></div>`).join('');
 
 /* ============ QUIZ ============ */
 let qIdx=0,qPick=null,qScore=0,qDone=false;
@@ -812,13 +807,13 @@ function renderQuiz(){
   const box=document.getElementById('quizBox');
   if(qDone){
     const pct=Math.round(qScore/QUIZ.length*100);
-    const v=pct===100?'Perfect — a true evolutionist.':pct>=60?'Well done! Darwin would approve.':'A good start — revisit the claims above.';
-    box.innerHTML=`<div style="padding:48px;text-align:center"><div style="width:80px;height:80px;border-radius:50%;background:hsl(28 64% 46% / .15);color:var(--accent);display:grid;place-items:center;margin:0 auto 24px;font-size:40px">🏅</div><div style="font-family:var(--font-display);font-size:3rem;font-weight:600;color:var(--primary)">${qScore} / ${QUIZ.length}</div><p style="margin-top:12px;font-size:1.1rem;color:hsl(158 20% 13% / .7)">${v}</p><div style="font-size:.85rem;color:var(--muted-fg);margin-top:12px">You scored ${pct}%</div><button class="btn btn-ghost" style="margin-top:32px" onclick="restartQuiz()">↻ Retake Quiz</button></div>`;
+    const v=pct===100?'Perfect. A true evolutionist.':pct>=60?'Well done! Darwin would approve.':'A good start. Revisit the claims above.';
+    box.innerHTML=`<div style="padding:48px;text-align:center"><div style="font-family:var(--font-display);font-size:3rem;font-weight:600;color:var(--primary)">${qScore} / ${QUIZ.length}</div><p style="margin-top:12px;font-size:1.1rem;color:hsl(158 20% 13% / .7)">${v}</p><div style="font-size:.85rem;color:var(--muted-fg);margin-top:12px">You scored ${pct}%</div><button class="btn btn-ghost" style="margin-top:32px" onclick="restartQuiz()">Retake Quiz</button></div>`;
     return;
   }
   const c=QUIZ[qIdx];
   const isLast=qIdx===QUIZ.length-1;
-  box.innerHTML=`<div style="padding:40px"><div class="quiz-head"><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">Question ${qIdx+1} of ${QUIZ.length}</span><span style="font-size:.9rem;color:hsl(158 20% 13% / .6)">Score: ${qScore}</span></div><div class="bar"><i style="width:${((qIdx+(qPick!==null?1:0))/QUIZ.length*100)}%"></i></div><div class="quiz-q">${c.q}</div>${c.o.map((o,i)=>{let cls='';if(qPick!==null){if(i===c.a)cls='correct';else if(i===qPick)cls='wrong';else cls='dim'}return `<button class="quiz-opt ${cls}" onclick="pickAns(${i})"><span>${o}</span>${qPick!==null&&i===c.a?'✅':qPick!==null&&i===qPick?'❌':''}</button>`}).join('')}${qPick!==null?`<div class="quiz-fb"><strong style="color:var(--accent)">${qPick===c.a?'Correct. ':'Not quite. '}</strong>${c.e}</div><div class="quiz-next"><button class="btn btn-primary" onclick="nextQ()">${isLast?'See Results':'Next Question'}</button></div>`:''}</div>`;
+  box.innerHTML=`<div style="padding:40px"><div class="quiz-head"><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">Question ${qIdx+1} of ${QUIZ.length}</span><span style="font-size:.9rem;color:hsl(158 20% 13% / .6)">Score: ${qScore}</span></div><div class="bar"><i style="width:${((qIdx+(qPick!==null?1:0))/QUIZ.length*100)}%"></i></div><div class="quiz-q">${c.q}</div>${c.o.map((o,i)=>{let cls='';if(qPick!==null){if(i===c.a)cls='correct';else if(i===qPick)cls='wrong';else cls='dim'}return `<button class="quiz-opt ${cls}" onclick="pickAns(${i})"><span>${o}</span></button>`}).join('')}${qPick!==null?`<div class="quiz-fb"><strong style="color:var(--accent)">${qPick===c.a?'Correct. ':'Not quite. '}</strong>${c.e}</div><div class="quiz-next"><button class="btn btn-primary" onclick="nextQ()">${isLast?'See Results':'Next Question'}</button></div>`:''}</div>`;
 }
 function pickAns(i){if(qPick!==null)return;qPick=i;if(i===QUIZ[qIdx].a)qScore++;renderQuiz()}
 function nextQ(){if(qIdx===QUIZ.length-1){qDone=true;renderQuiz();return}qIdx++;qPick=null;renderQuiz()}
@@ -826,12 +821,12 @@ function restartQuiz(){qIdx=0;qPick=null;qScore=0;qDone=false;renderQuiz()}
 renderQuiz();
 
 /* ============ SOURCES ============ */
-document.getElementById('fsources').innerHTML=SOURCES.map(s=>`<a class="fsrc" href="${s[1]}" target="_blank" rel="noopener">↗ ${s[0]}</a>`).join('');
+document.getElementById('fsources').innerHTML=SOURCES.map(s=>`<a class="fsrc" href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join('');
 
 /* ============ SIMULATION ============ */
 const cv=document.getElementById('simCanvas'),cx=cv.getContext('2d');
 const chartCv=document.getElementById('simChart'),chtx=chartCv.getContext('2d');
-const W=640,H=400,MAXB=60,TARGET_SOFT=40,TARGET_DROUGHT=22;
+const W=860,H=540,MAXB=80,TARGET_SOFT=54,TARGET_DROUGHT=30;
 let drought=false,running=true,birds=[],seeds=[],gen=0,ticks=0,history=[];
 const TICKS_PER_GEN=40; // generation advances on a timer, not on births
 const rand=(a,b)=>a+Math.random()*(b-a);
@@ -840,19 +835,19 @@ function makeBird(x,y,b){return{id:Math.random().toString(36).slice(2),x:x??rand
 function makeSeed(d){const hard=d?Math.random()<0.82:Math.random()<0.45;return{id:Math.random().toString(36).slice(2),x:rand(18,W-18),y:rand(18,H-18),hard,hardness:hard?0.72:0.30,r:hard?5:3.4}}
 function target(){return drought?TARGET_DROUGHT:TARGET_SOFT}
 function reset(){
-  birds=Array.from({length:22},()=>makeBird());
+  birds=Array.from({length:30},()=>makeBird());
   seeds=Array.from({length:target()},()=>makeSeed(drought));
   gen=0;ticks=0;
   const avg=birds.reduce((s,b)=>s+b.beak,0)/birds.length;
   history=[{g:0,beak:+avg.toFixed(3)}];
-  running=true;document.getElementById('simPlay').textContent='⏸ Pause';
+  running=true;document.getElementById('simPlay').textContent='Pause';
 }
 reset();
 function step(){
   ticks++;
   const eaten=new Set();const surv=[];
   for(const b of birds){
-    // gentle metabolic cost — larger beaks cost slightly more
+    // gentle metabolic cost: larger beaks cost slightly more
     const en=b.energy-(0.018+b.beak*0.022);
     if(en<=0)continue;
     let x=b.x,y=b.y,beak=b.beak,t=null,best=Infinity;
@@ -956,9 +951,9 @@ function loop(ts){
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
-document.getElementById('simPlay').onclick=()=>{running=!running;document.getElementById('simPlay').textContent=running?'⏸ Pause':'▶ Play'};
+document.getElementById('simPlay').onclick=()=>{running=!running;document.getElementById('simPlay').textContent=running?'Pause':'Play'};
 document.getElementById('simReset').onclick=reset;
-document.getElementById('simDrought').onclick=function(){drought=!drought;this.textContent=drought?'☀ Drought: On':'☀ Drought: Off';this.classList.toggle('on',drought)};
+document.getElementById('simDrought').onclick=function(){drought=!drought;this.textContent=drought?'Drought: On':'Drought: Off';this.classList.toggle('on',drought)};
 </script>
 </body>
 </html>
