@@ -214,6 +214,10 @@
   .spec-ex .lab{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
   .spec-ex h4{font-family:var(--font-display);font-size:1.2rem;font-weight:600}
   .spec-ex p{margin-top:8px;font-size:.92rem;color:hsl(158 20% 13% / .7)}
+  .spec-img-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+  .spec-img-row figure{flex:1;min-width:110px;margin:0}
+  .spec-img-row img{width:100%;height:120px;object-fit:cover;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .spec-img-row figcaption{font-size:.72rem;color:var(--muted-fg);margin-top:6px;text-align:center}
 
   /* simulation */
   .sim-grid{display:grid;grid-template-columns:1fr;gap:20px}
@@ -550,12 +554,23 @@
       <div class="card spec-card reveal">
         <h3>Allopatric Speciation</h3>
         <p style="color:hsl(158 20% 13% / .7)">Physical barriers like rivers, mountains, or human-caused fragmentation separate populations. Groups that are seperated face different selective pressures, causing different species to emerge over time.</p>
-        <div class="spec-ex"><div class="lab">Real World Example</div><h4>Polar Bears &amp; Grizzly Bears</h4><p>They share a common ancestor but became two species. During the ice ages, grizzlies were geographically isolated in an arctic environment through Pleistocene glaciations (Fonseca et al., 2023). A growing appetite for seals also contributed (PBS WHYY, 2008).</p></div>
+        <div class="spec-ex"><div class="lab">Real World Example</div><h4>Polar Bears &amp; Grizzly Bears</h4><p>They share a common ancestor but became two species. During the ice ages, grizzlies were geographically isolated in an arctic environment through Pleistocene glaciations (Fonseca et al., 2023). A growing appetite for seals also contributed (PBS WHYY, 2008).</p>
+          <div class="spec-img-row">
+            <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Polar_Bear_AdF.jpg" alt="Polar bear" /><figcaption>Polar bear</figcaption></figure>
+            <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grizzly_bear_(Ursus_arctos_ssp.)_(14414246276).jpg" alt="Grizzly bear" /><figcaption>Grizzly bear</figcaption></figure>
+          </div>
+        </div>
       </div>
       <div class="card spec-card reveal">
         <h3>Sympatric Speciation</h3>
         <p style="color:hsl(158 20% 13% / .7)">New species emerge without physical barriers, often when parts of a population specialize in different resources or food within the same area.</p>
-        <div class="spec-ex"><div class="lab">Real World Example</div><h4>The Apple Maggot Fly</h4><p>The North American apple maggot fly diverged within the same area. Originally feeding on hawthorn fruit, some shifted to apple trees introduced in the 19th century. Because young flies favor the scent of the fruit they hatched on, apple-born and hawthorn-born flies split apart (Berkeley UC, n.d.).</p></div>
+        <div class="spec-ex"><div class="lab">Real World Example</div><h4>The Apple Maggot Fly</h4><p>The North American apple maggot fly diverged within the same area. Originally feeding on hawthorn fruit, some shifted to apple trees introduced in the 19th century. Because young flies favor the scent of the fruit they hatched on, apple-born and hawthorn-born flies split apart (Berkeley UC, n.d.).</p>
+          <div class="spec-img-row">
+            <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/HawthornFruit.JPG" alt="Hawthorn fruit" /><figcaption>Hawthorn fruit</figcaption></figure>
+            <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Red_Apple.jpg" alt="Apple" /><figcaption>Apple</figcaption></figure>
+            <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Rhagoletis_pomonella.jpg" alt="Apple maggot fly" /><figcaption>Apple maggot fly</figcaption></figure>
+          </div>
+        </div>
       </div>
     </div>
     <div class="card" style="margin-top:24px;overflow:hidden">
@@ -827,8 +842,10 @@ document.getElementById('fsources').innerHTML=SOURCES.map(s=>`<a class="fsrc" hr
 const cv=document.getElementById('simCanvas'),cx=cv.getContext('2d');
 const chartCv=document.getElementById('simChart'),chtx=chartCv.getContext('2d');
 const W=860,H=540,MAXB=80,TARGET_SOFT=54,TARGET_DROUGHT=30;
-let drought=false,running=true,birds=[],seeds=[],gen=0,ticks=0,history=[];
+const POP_FLOOR=5,POP_FLOOR_RAMP=3; // metabolic cost eases toward 0 as population nears this floor, so it never starves below it
+let drought=false,running=true,birds=[],seeds=[],gen=0,ticks=0,history=[],lastAvgBeak=0;
 const TICKS_PER_GEN=40; // generation advances on a timer, not on births
+const HISTORY_CAP=600; // keeps far more generations on the graph before trimming, without changing sim speed
 const rand=(a,b)=>a+Math.random()*(b-a);
 const gauss=()=>(Math.random()+Math.random()+Math.random()-1.5)*0.05; // small heritable variation
 function makeBird(x,y,b){return{id:Math.random().toString(36).slice(2),x:x??rand(20,W-20),y:y??rand(20,H-20),beak:b??rand(0.35,0.95),energy:1,dir:0}}
@@ -839,6 +856,7 @@ function reset(){
   seeds=Array.from({length:target()},()=>makeSeed(drought));
   gen=0;ticks=0;
   const avg=birds.reduce((s,b)=>s+b.beak,0)/birds.length;
+  lastAvgBeak=avg;
   history=[{g:0,beak:+avg.toFixed(3)}];
   running=true;document.getElementById('simPlay').textContent='Pause';
 }
@@ -846,10 +864,17 @@ reset();
 function step(){
   ticks++;
   const eaten=new Set();const surv=[];
+  const startPop=birds.length;
+  let deadCount=0;
   for(const b of birds){
-    // gentle metabolic cost: larger beaks cost slightly more
-    const en=b.energy-(0.018+b.beak*0.022);
-    if(en<=0)continue;
+    // Density-dependent metabolic cost: as the population nears the
+    // survival floor (POP_FLOOR), competition for food eases and each
+    // bird's energy upkeep drops toward zero, so the population can't
+    // be starved down past that floor.
+    const aliveBeforeThis=startPop-deadCount;
+    const costScale=aliveBeforeThis<=POP_FLOOR?0:Math.min(1,(aliveBeforeThis-POP_FLOOR)/POP_FLOOR_RAMP);
+    const en=b.energy-(0.018+b.beak*0.022)*costScale;
+    if(en<=0){deadCount++;continue}
     let x=b.x,y=b.y,beak=b.beak,t=null,best=Infinity;
     for(const s of seeds){if(eaten.has(s.id))continue;const d=(s.x-x)**2+(s.y-y)**2;if(d<best){best=d;t=s}}
     let ne=en;
@@ -877,12 +902,17 @@ function step(){
   while(ns.length<tgt&&Math.random()<0.9)ns.push(makeSeed(drought));
   if(ns.length>tgt+8)ns=ns.slice(0,tgt+8);
   birds=surv;seeds=ns;
-  // record a generation every TICKS_PER_GEN ticks, using current pop avg
-  if(ticks%TICKS_PER_GEN===0&&birds.length){
+  // record a generation every TICKS_PER_GEN ticks. Keep advancing and
+  // recording even after extinction so the line keeps running (flat)
+  // instead of just stopping, while the beak average freezes at its
+  // last known value rather than dropping to 0.
+  if(ticks%TICKS_PER_GEN===0){
     gen++;
-    const avg=birds.reduce((s,b)=>s+b.beak,0)/birds.length;
-    history.push({g:gen,beak:+avg.toFixed(3)});
-    if(history.length>200)history.shift();
+    if(birds.length){
+      lastAvgBeak=birds.reduce((s,b)=>s+b.beak,0)/birds.length;
+    }
+    history.push({g:gen,beak:+lastAvgBeak.toFixed(3)});
+    if(history.length>HISTORY_CAP)history.shift();
   }
 }
 function drawBird(b){
@@ -940,7 +970,8 @@ function draw(){
   for(const s of seeds){cx.fillStyle=s.hard?'#b45309':'#65a30d';cx.beginPath();cx.arc(s.x*(cv.width/W),s.y*(cv.height/H),s.r,0,7);cx.fill()}
   for(const b of birds)drawBird(b);
   if(birds.length===0){cx.fillStyle='hsl(158 20% 13% / .6)';cx.font='20px serif';cx.textAlign='center';cx.fillText('The population has gone extinct. Press Reset.',cv.width/2,cv.height/2)}
-  const pop=birds.length,avg=pop?birds.reduce((s,b)=>s+b.beak,0)/pop:0;
+  const pop=birds.length;
+  const avg=pop?birds.reduce((s,b)=>s+b.beak,0)/pop:lastAvgBeak;
   document.getElementById('sPop').textContent=pop;document.getElementById('sGen').textContent=gen;document.getElementById('sBeak').textContent=avg.toFixed(2);
   drawChart();
 }
