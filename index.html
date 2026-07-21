@@ -208,7 +208,8 @@
   .ev-img-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:flex-start}
   .ev-img-row figure{flex:1;min-width:130px;margin:0}
   .ev-img-row.single figure{flex:0 1 260px}
-  .ev-img-row img{width:100%;height:130px;object-fit:contain;background:#fff;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .ev-img-row img{display:block;width:100%;height:auto;max-height:220px;object-fit:contain;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .ev-img-row svg.chart-fig{display:block;width:100%;height:auto;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12);background:#fff}
   .ev-img-row figcaption{font-size:.72rem;color:var(--muted-fg);margin-top:6px;text-align:center}
   .ev-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--accent);font-weight:700;padding-top:44px}
 
@@ -223,7 +224,7 @@
   .spec-ex p{margin-top:8px;font-size:.92rem;color:hsl(158 20% 13% / .7)}
   .spec-img-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
   .spec-img-row figure{flex:1;min-width:110px;margin:0}
-  .spec-img-row img{width:100%;height:120px;object-fit:contain;background:#fff;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .spec-img-row img{display:block;width:100%;height:auto;max-height:200px;object-fit:contain;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12)}
   .spec-img-row figcaption{font-size:.72rem;color:var(--muted-fg);margin-top:6px;text-align:center}
 
   /* simulation */
@@ -699,9 +700,9 @@ const VOYAGE=[
 ];
 const CLAIMS=[
   {id:"I",title:"Nonconstancy of Species",tag:"Species are not fixed. They change over time.",blurb:"Darwin broke from the idea that species were created once and never altered. Life always adapts to different environments, populations shift, and species can vanish, just like how the slow ants dissapeared in the ant simulation we did yesterday. Today, evolution happens fast enough to watch in right now.",ev:[
-    {t:"Antibiotic Resistant Bacteria",ty:"Modern Medicine",x:"Within decades of penicillin's (A group of antibiotics) introduction, MRSA evolved resistance. Mutations that neutralize drugs were inherited (Survivial of the Fittest), so resistant strains rapidly dominate under antibiotic pressure",imgs:[{src:"https://www.researchgate.net/profile/James-Hughes-21/publication/14213140/figure/fig1/AS:340393305624582@1458167496676/Graph-showing-increase-in-methicillin-resistant-Staphylococcus-aureus-MRSA-infections.png",cap:"Percentage of S. aureus isolates resistant to methicillin, 1975 to 1992"}]},
+    {t:"Antibiotic Resistant Bacteria",ty:"Modern Medicine",x:"Within decades of penicillin's (A group of antibiotics) introduction, MRSA evolved resistance. Mutations that neutralize drugs were inherited (Survivial of the Fittest), so resistant strains rapidly dominate under antibiotic pressure",imgs:[{chart:"mrsa",cap:"Percentage of S. aureus isolates resistant to methicillin, by hospital size, 1975 to 1992 (CDC/NNIS data)"}]},
     {t:"Darwin's Fossils",ty:"Paleontology",x:"In 1833 Darwin dug up giant extinct glyptodons and ground sloths, which resembled living armadillos. Their disappearance proved species are not permanent (Let's reference the ant simulation again)",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Glyptodon_silhouette.png",cap:"Size comparison of the giant armadillo (left) and its extinct relative Glyptodon (right)"}]},
-    {t:"The Peppered Moth",ty:"Natural Selection",x:"During Britain's Industrial Revolution, the moth shifted from pale to dark as soot (carbon that burn incompletely) blackened the trees, and back again as air cleared.",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Peppered_Moth.jpg",cap:"The pale typica form of the peppered moth"},{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Biston.betularia.f.carbonaria.7209.jpg",cap:"The dark carbonaria form of the peppered moth"}],arrows:true}
+    {t:"The Peppered Moth",ty:"Natural Selection",x:"During Britain's Industrial Revolution, the moth shifted from pale to dark as soot (carbon that burn incompletely) blackened the trees, and back again as air cleared.",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Biston.betularia.7200.jpg",cap:"The pale typica form of the peppered moth"},{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Biston.betularia.f.carbonaria.7209.jpg",cap:"The dark carbonaria form of the peppered moth"}],arrows:true}
   ]},
   {id:"II",title:"Descent from a Common Ancestor",tag:"We all share a common ancestor",blurb:"Every living thing is a cousin at some point. Similar bone structures, similar genes, and fossils all point back to shared ancestors.",ev:[
     {t:"Tiktaalik: Fishes With Necks",ty:"New Brainrot???",x:"Tiktaalik foosils indicate fish scales and fins alongside a MOBILE NECK and WRIST BONES. This fish was the gap between our ordinary fish and the first 4 legged animals. In summary, it was the bridge between an ordinary fish and a tetrapod (first 4 legged animal)",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Tiktaalik_roseae_life_restor.jpg",cap:"Tiktaalik roseae, the transitional fish-tetrapod"},{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Ichthyostega_BW.jpg",cap:"An early tetrapod descendant"}],arrows:true},
@@ -791,12 +792,39 @@ renderVoyage();
 
 /* ============ CLAIMS ============ */
 let cActive=0;
+function mrsaChartSVG(){
+  const years=[1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992];
+  const large=[3,3,3.5,4,4.5,5,5.5,6,8,12,17,22,27,31,34,36.5,38.3,41];
+  const medium=[2,2,2.2,2.5,3,3.5,4,4.5,5,5.5,6.5,9,12,15,17.5,19,20.3,25.5];
+  const small=[2,2,2,2,2.2,2.5,3,2,2.5,3,3.5,4.5,5.5,7,9,10.5,14.9,21.3];
+  const W=440,H=260,PL=34,PR=10,PT=28,PB=26;
+  const plotW=W-PL-PR,plotH=H-PT-PB;
+  const xMin=1975,xMax=1992,yMin=0,yMax=45;
+  const X=yr=>PL+((yr-xMin)/(xMax-xMin))*plotW;
+  const Y=v=>PT+plotH-((v-yMin)/(yMax-yMin))*plotH;
+  const path=arr=>years.map((yr,i)=>`${i?'L':'M'}${X(yr).toFixed(1)},${Y(arr[i]).toFixed(1)}`).join(' ');
+  let grid='';
+  for(let g=0;g<=3;g++){const v=g*15,py=Y(v);grid+=`<line x1="${PL}" y1="${py.toFixed(1)}" x2="${W-PR}" y2="${py.toFixed(1)}" stroke="hsl(42 20% 84%)" stroke-width="1"/><text x="${PL-6}" y="${py.toFixed(1)}" font-size="9" fill="hsl(158 10% 40%)" text-anchor="end" dominant-baseline="middle">${v}%</text>`}
+  let xlabels='';
+  [1975,1980,1985,1990].forEach(yr=>{xlabels+=`<text x="${X(yr).toFixed(1)}" y="${H-PB+13}" font-size="9" fill="hsl(158 10% 40%)" text-anchor="middle">${yr}</text>`});
+  return `<svg class="chart-fig" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line chart of percentage of S. aureus isolates resistant to methicillin by hospital size, 1975 to 1992">
+    <text x="${PL}" y="14" font-size="10" font-weight="600" fill="hsl(158 20% 13%)">% of S. aureus isolates resistant to methicillin</text>
+    ${grid}
+    <line x1="${PL}" y1="${PT}" x2="${PL}" y2="${H-PB}" stroke="hsl(42 20% 84%)"/>
+    <line x1="${PL}" y1="${H-PB}" x2="${W-PR}" y2="${H-PB}" stroke="hsl(42 20% 84%)"/>
+    ${xlabels}
+    <path d="${path(large)}" fill="none" stroke="hsl(28 64% 46%)" stroke-width="2.5" stroke-dasharray="6 4"/>
+    <path d="${path(medium)}" fill="none" stroke="hsl(158 34% 20%)" stroke-width="2.5"/>
+    <path d="${path(small)}" fill="none" stroke="hsl(200 45% 42%)" stroke-width="2.5"/>
+  </svg><div style="display:flex;gap:12px;flex-wrap:wrap;font-size:.68rem;color:var(--muted-fg);margin-top:6px"><span><span style="display:inline-block;width:14px;height:2px;background:hsl(28 64% 46%);vertical-align:middle;margin-right:4px"></span>&ge;500 beds</span><span><span style="display:inline-block;width:14px;height:2px;background:hsl(158 34% 20%);vertical-align:middle;margin-right:4px"></span>200&ndash;499 beds</span><span><span style="display:inline-block;width:14px;height:2px;background:hsl(200 45% 42%);vertical-align:middle;margin-right:4px"></span>&lt;200 beds</span></div>`;
+}
 function evImgs(imgs,arrows){
   if(!imgs||!imgs.length)return '';
   let html=`<div class="ev-img-row${imgs.length===1?' single':''}">`;
   imgs.forEach((im,i)=>{
     if(i>0&&arrows)html+=`<div class="ev-arrow">&#8594;</div>`;
-    html+=`<figure><img src="${im.src}" alt="${im.cap}" loading="lazy"/><figcaption>${im.cap}</figcaption></figure>`;
+    const media=im.chart==='mrsa'?mrsaChartSVG():`<img src="${im.src}" alt="${im.cap}" loading="lazy"/>`;
+    html+=`<figure>${media}<figcaption>${im.cap}</figcaption></figure>`;
   });
   html+='</div>';
   return html;
