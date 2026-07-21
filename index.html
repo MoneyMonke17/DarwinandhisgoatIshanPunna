@@ -708,7 +708,7 @@
             <rect x="2" y="5" width="2" height="2" fill="#fff"/>
             <rect x="12" y="5" width="2" height="2" fill="#fff"/>
           </svg>
-          
+
         </div>
         <div style="margin-top:20px;text-align:center">
           <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--primary)">Charles Darwin</div>
@@ -722,9 +722,11 @@
 <!-- VOYAGE -->
 <section id="voyage" class="reveal terra-wash" data-terrain="tide">
   <div class="wrap">
-    <span class="eyebrow">The Voyage of the Beagle</span>
-    <h2 class="title">Five years that changed how we see life</h2>
-    <p class="lead">The places Darwin went to changed his thinking and perspective.</p>
+    <div style="text-align:center">
+      <span class="eyebrow">The Voyage of the Beagle</span>
+      <h2 class="title">Five years that changed how we see life</h2>
+      <p class="lead" style="margin:0 auto">The places Darwin went to changed his thinking and perspective.</p>
+    </div>
     <div class="voyage-grid">
       <div class="timeline" id="timeline"></div>
       <div id="voyageCard"></div>
@@ -735,9 +737,11 @@
 <!-- CLAIMS -->
 <section id="claims" class="claims reveal" data-terrain="canopy">
   <div class="wrap">
-    <span class="eyebrow">Darwin's Five Claims</span>
-    <h2 class="title">The pillars of evolutionary theory</h2>
-    <p class="lead">Each claim takes root in Darwin's own evidence. These observations relate to today's biology, medicine, and climate.</p>
+    <div style="text-align:center">
+      <span class="eyebrow">Darwin's Five Claims</span>
+      <h2 class="title">The pillars of evolutionary theory</h2>
+      <p class="lead" style="margin:0 auto">Each claim takes root in Darwin's own evidence. These observations relate to today's biology, medicine, and climate.</p>
+    </div>
     <br>
     <div class="claim-tabs" id="claimTabs"></div>
     <div id="claimPanel"></div>
@@ -747,9 +751,11 @@
 <!-- SPECIATION -->
 <section id="speciation" class="reveal terra-wash" data-terrain="summit">
   <div class="wrap">
-    <span class="eyebrow">Multiplication of Species</span>
-    <h2 class="title">How new species form</h2>
-    <p class="lead">Darwin realized species emerge from a common ancestor into new, distinct species. Today we see this through two pathways: allopatric (geographic isolation) and sympatric (within the same area).</p>
+    <div style="text-align:center">
+      <span class="eyebrow">Multiplication of Species</span>
+      <h2 class="title">How new species form</h2>
+      <p class="lead" style="margin:0 auto">Darwin realized species emerge from a common ancestor into new, distinct species. Today we see this through two pathways: allopatric (geographic isolation) and sympatric (within the same area).</p>
+    </div>
     <div class="spec-grid" style="margin-top:48px">
       <div class="card spec-card reveal">
         <h3>Allopatric Speciation</h3>
@@ -782,9 +788,11 @@
 <!-- SIMULATION -->
 <section id="simulation" class="reveal terra-wash" data-terrain="reef">
   <div class="wrap">
-    <span class="eyebrow">Interactive · Natural Selection in Action</span>
-    <h2 class="title">The Finch Beak Simulation</h2>
-    <p class="lead">A model of Darwin's claims. Each bird's beak size determines which seeds it can crack. Flip on a drought and watch natural selection shift the whole population toward larger beaks, just like the 1977 Galápagos drought.</p>
+    <div style="text-align:center">
+      <span class="eyebrow">Interactive · Natural Selection in Action</span>
+      <h2 class="title">The Finch Beak Simulation</h2>
+      <p class="lead" style="margin:0 auto">A model of Darwin's claims. Each bird's beak size determines which seeds it can crack. Flip on a drought and watch natural selection shift the whole population toward larger beaks, just like the 1977 Galápagos drought.</p>
+    </div>
     <div class="sim-grid" style="margin-top:48px">
       <div class="sim-world">
         <canvas id="simCanvas" class="sim-canvas" width="860" height="540"></canvas>
@@ -816,9 +824,11 @@
 <!-- CASE STUDY -->
 <section id="case-study" class="case reveal" data-terrain="abyss">
   <div class="wrap">
-    <span class="eyebrow">Case Study</span>
-    <h2 class="title">Darwin Today</h2>
-    <p class="lead">Darwin's principles aren't useless and rotting away. They came into application COVID-19. Let's look at their impacts.</p>
+    <div style="text-align:center">
+      <span class="eyebrow">Case Study</span>
+      <h2 class="title">Darwin Today</h2>
+      <p class="lead" style="margin:0 auto">Darwin's principles aren't useless and rotting away. They came into application COVID-19. Let's look at how each claim was used with each of the variants.</p>
+    </div>
     <div class="case-grid">
       <div id="caseTabs"></div>
       <div id="casePanel"></div>
@@ -829,9 +839,11 @@
 <!-- CLASSIFICATION -->
 <section id="classification" class="reveal terra-wash" data-terrain="alpine">
   <div class="wrap">
-    <span class="eyebrow">Domain Classification Model</span>
-    <h2 class="title">How life is organized today</h2>
-    <p class="lead">Carl Linnaeus proposed a classification system in 1753. Two and a half centuries later, genetic technology has rewritten it from physical traits alone to a system grounded in DNA. It goes from the broadest classification to a single species.</p>
+    <div style="text-align:center">
+      <span class="eyebrow">Domain Classification Model</span>
+      <h2 class="title">How life is organized today</h2>
+      <p class="lead" style="margin:0 auto">Carl Linnaeus proposed a classification system in 1753. Two and a half centuries later, genetic technology has rewritten it from physical traits alone to a system grounded in DNA. It goes from the broadest classification to a single species.</p>
+    </div>
     <br>
     <div class="card hierarchy">
       <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg)">The Linnaean Hierarchy, from broadest to most specific</div>
@@ -909,12 +921,12 @@ const CLAIMS=[
   {id:"IV",title:"Multiplication of Species",tag:"One ancestor can branch into many new species.",blurb:"When populations become isolated in different environments, they gradually adapt apart until they can no longer interbreed",ev:[
     {t:"Adaption within Galápagos",ty:"Islands",x:"A single finch colonized the Galápagos and diversified into 18+ species, each with beaks suited to its island's food. This was kind of like the tortoises (Tebbich et al., 2010).",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Darwin's_finches.png",cap:"Adaptive radiation of the Galápagos finches from a shared ancestral seed-eating ground finch"}]},
     {t:"Cichlid Fish in Lakes",ty:"Lakes",x:"In Lake Victoria, hundreds of cichlid species evolved from a common ancestor in under 15,000 years, each developing a different niche (Mother Nature, 2024).",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Malawi_Cichlid_blue.JPG",cap:"A cichlid, part of the same kind of rapid species radiation seen across Africa's rift lakes"}]},
-    {t:"Anolis Lizards in the Caribbean",ty:"Islands",x:"One anole lizard colonized the Caribbean islands and branched into a bunch of different species. The crazy part is the same body types (long-legged trunk runners, tiny twig-dwellers) evolved over and over on separate islands from that one common ancestor.",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Anolis_carolinensis.jpg",cap:"A green anole, one of many Caribbean species that radiated from a shared ancestor"}]}
+    {t:"Anolis Lizards in the Caribbean",ty:"Islands",x:"One anole lizard colonized the Caribbean islands and branched into a bunch of different species. The crazy part is the same body types (long-legged trunk runners, tiny twig-dwellers) evolved over and over on separate islands from that one common ancestor (Losos, 2009).",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Anolis_carolinensis.jpg",cap:"A green anole, one of many Caribbean species that radiated from a shared ancestor"}]}
   ]},
   {id:"V",title:"Natural Selection",tag:"Survival of the Fittest",blurb:"One of the major factors of evolution. Individuals with traits that fit the conditions to survive pass their traits on. As climates shift, selection shifts with them (BBC bitesize, 2019; Schluter et al., 2010)",ev:[
-    {t:"Mosquitoes preparing for Spring",ty:"Climate",x:"Pitcher-plant mosquitoes have evolved to respond to longer, warmer days earlier."},
+    {t:"Mosquitoes preparing for Spring",ty:"Climate",x:"Pitcher-plant mosquitoes have evolved to respond to longer, warmer days earlier (Why Mosquitoes Appear in Spring, n.d.).",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Wyeomyia_smithii_1.jpg",cap:"The pitcher-plant mosquito, Wyeomyia smithii, whose seasonal timing has shifted earlier as springs warm"}]},
     {t:"Coral & Climate Pressure",ty:"Oceans",x:"Warming oceans are a force in evolution (environment). This leads to coral populations evolving to obtain greater heat tolerance. The coral that evolves faster survives (National Oceanic and Atmospheric Administration, 2024).",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Great_Barrier_Reef_Coral.jpg",cap:"Coral colonies under selective pressure from warming, changing oceans"}]},
-    {t:"Rock Pocket Mice",ty:"Camouflage",x:"Out in the Arizona desert, rock pocket mice come in a light form and a dark form. On black lava rock the dark mice blend in and dodge owls while the light ones get picked off, and on pale sand it flips. The predators are basically doing the selecting here (Nachman et al., 2003)."}
+    {t:"Rock Pocket Mice",ty:"Camouflage",x:"Out in the Arizona desert, rock pocket mice come in a light form and a dark form. On black lava rock the dark mice blend in and dodge owls while the light ones get picked off, and on pale sand it flips. The predators are basically doing the selecting here (Nachman et al., 2003).",imgs:[{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Chaetodipus_intermedius_intermedius_351159.jpg",cap:"A rock pocket mouse (Chaetodipus intermedius); coat color in this species tracks the rock/sand color of its habitat"}]}
   ]}
 ];
 const CASE=[
