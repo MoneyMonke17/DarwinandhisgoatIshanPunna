@@ -205,6 +205,12 @@
   .ev-row h4{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
   .ev-type{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
   .ev-row p{margin-top:8px;color:hsl(158 20% 13% / .65)}
+  .ev-img-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:flex-start}
+  .ev-img-row figure{flex:1;min-width:130px;margin:0}
+  .ev-img-row.single figure{flex:0 1 260px}
+  .ev-img-row img{width:100%;height:130px;object-fit:cover;border-radius:8px;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .ev-img-row figcaption{font-size:.72rem;color:var(--muted-fg);margin-top:6px;text-align:center}
+  .ev-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--accent);font-weight:700;padding-top:44px}
 
   /* speciation */
   .spec-grid{display:grid;grid-template-columns:1fr;gap:24px}
@@ -693,27 +699,27 @@ const VOYAGE=[
 ];
 const CLAIMS=[
   {id:"I",title:"Nonconstancy of Species",tag:"Species are not fixed. They change over time.",blurb:"Darwin broke from the idea that species were created once and never altered. Life always adapts to different environments, populations shift, and species can vanish, just like how the slow ants dissapeared in the ant simulation we did yesterday. Today, evolution happens fast enough to watch in right now.",ev:[
-    {t:"Antibiotic Resistant Bacteria",ty:"Modern Medicine",x:"Within decades of penicillin's (A group of antibiotics) introduction, MRSA evolved resistance. Mutations that neutralize drugs were inherited (Survivial of the Fittest), so resistant strains rapidly dominate under antibiotic pressure"},
-    {t:"Darwin's Fossils",ty:"Paleontology",x:"In 1833 Darwin dug up giant extinct glyptodons and ground sloths, which resembled living armadillos. Their disappearance proved species are not permanent (Let's reference the ant simulation again)"},
-    {t:"The Peppered Moth",ty:"Natural Selection",x:"During Britain's Industrial Revolution, the moth shifted from pale to dark as soot (carbon that burn incompletely) blackened the trees, and back again as air cleared."}
+    {t:"Antibiotic Resistant Bacteria",ty:"Modern Medicine",x:"Within decades of penicillin's (A group of antibiotics) introduction, MRSA evolved resistance. Mutations that neutralize drugs were inherited (Survivial of the Fittest), so resistant strains rapidly dominate under antibiotic pressure",imgs:[{src:"images/mrsa_graph.png",cap:"Percentage of S. aureus isolates resistant to methicillin, 1975 to 1992"}]},
+    {t:"Darwin's Fossils",ty:"Paleontology",x:"In 1833 Darwin dug up giant extinct glyptodons and ground sloths, which resembled living armadillos. Their disappearance proved species are not permanent (Let's reference the ant simulation again)",imgs:[{src:"images/armadillo_glyptodon.png",cap:"Giant armadillo (left) beside its extinct relative Glyptodon (right)"}]},
+    {t:"The Peppered Moth",ty:"Natural Selection",x:"During Britain's Industrial Revolution, the moth shifted from pale to dark as soot (carbon that burn incompletely) blackened the trees, and back again as air cleared.",imgs:[{src:"images/peppered_moths.png",cap:"The pale typica form (left) and dark carbonaria form (right) of the peppered moth"}]}
   ]},
   {id:"II",title:"Descent from a Common Ancestor",tag:"We all share a common ancestor",blurb:"Every living thing is a cousin at some point. Similar bone structures, similar genes, and fossils all point back to shared ancestors.",ev:[
-    {t:"Tiktaalik: Fishes With Necks",ty:"New Brainrot???",x:"Tiktaalik foosils indicate fish scales and fins alongside a MOBILE NECK and WRIST BONES. This fish was the gap between our ordinary fish and the first 4 legged animals. In summary, it was the bridge between nemo and a tetrapods (first 4 legged animals)"},
-    {t:"Human–Chimpanzee DNA",ty:"Modern · Genomics",x:"Humans and chimpanzees share about 98.8% of their DNA, and the same universal genetic code runs through every living thing (Chimpanzee Sequencing and Analysis Consortium, 2005)."},
-    {t:"Homologous Limb Bones",ty:"Anatomy",x:"There is the same bone structure within a human arm, whale flipper, bat wing, and cat leg."}
+    {t:"Tiktaalik: Fishes With Necks",ty:"New Brainrot???",x:"Tiktaalik foosils indicate fish scales and fins alongside a MOBILE NECK and WRIST BONES. This fish was the gap between our ordinary fish and the first 4 legged animals. In summary, it was the bridge between an ordinary fish and a tetrapod (first 4 legged animal)",imgs:[{src:"images/tiktaalik.png",cap:"Tiktaalik roseae, the transitional fish-tetrapod"},{src:"images/tetrapod.png",cap:"An early tetrapod descendant"}],arrows:true},
+    {t:"Human–Chimpanzee DNA",ty:"Modern · Genomics",x:"Humans and chimpanzees share about 98.8% of their DNA, and the same universal genetic code runs through every living thing (Chimpanzee Sequencing and Analysis Consortium, 2005).",imgs:[{src:"images/chromosomes.png",cap:"Human chromosomes (red) aligned against chimpanzee chromosomes (blue)"}]},
+    {t:"Homologous Limb Bones",ty:"Anatomy",x:"There is the same bone structure within a human arm, whale flipper, bat wing, and cat leg.",imgs:[{src:"images/hand_flipper.png",cap:"The same limb bones in a whale flipper and a human hand, shaped for different uses"}]}
   ]},
   {id:"III",title:"Gradual Evolution",tag:"Change accumulates slowly, generation by generation.",blurb:"Evolution for more complex animals takes times. Across many generations, small inherited differences stack up until a population looks nothing like where it began.",ev:[
-    {t:"Galápagos Finch Beaks",ty:"Survival of the Fittest",x:"On Daphne Major (an island), the beaks of finches were measured for 40 years. After the 1977 drought, average beak length rose as only large beaked birds could crack tough seeds"},
-    {t:"Artificial Selection in Dogs",ty:"Modern Breeding",x:"From a single wolf-like ancestor, artificial breeding produced Chihuahuas and Great Danes. This was a more sped up version of gradual selection."},
-    {t:"Land Mammals -> Whales",ty:"Historical · Fossil Series",x:"A fossil chain (Pakicetus, Ambulocetus, Rodhocetus) traces whales over millions of years from four-legged land mammals to aquatic giants."}
+    {t:"Galápagos Finch Beaks",ty:"Survival of the Fittest",x:"On Daphne Major (an island), the beaks of finches were measured for 40 years. After the 1977 drought, average beak length rose as only large beaked birds could crack tough seeds",imgs:[{src:"images/finch_radiation_simple.png",cap:"A common ancestor finch radiating into species with different beaks"}]},
+    {t:"Artificial Selection in Dogs",ty:"Modern Breeding",x:"From a single wolf-like ancestor, artificial breeding produced Chihuahuas and Great Danes. This was a more sped up version of gradual selection.",imgs:[{src:"images/wolf_to_dogs.png",cap:"A wolf ancestor bred by humans into varied dog breeds"}]},
+    {t:"Land Mammals -> Whales",ty:"Historical · Fossil Series",x:"A fossil chain (Pakicetus, Ambulocetus, Rodhocetus) traces whales over millions of years from four-legged land mammals to aquatic giants.",imgs:[{src:"images/whale_evolution.png",cap:"The evolution of whales from land mammals over 50 million years"}]}
   ]},
   {id:"IV",title:"Multiplication of Species",tag:"One ancestor can branch into many new species.",blurb:"When populations become isolated in different environments, they gradually adapt apart until they can no longer interbreed",ev:[
-    {t:"Adaption within Galápagos",ty:"Islands",x:"A single finch colonized the Galápagos and diversified into 18+ species, each with beaks suited to its island's food. This was kind of like the tortoises."},
-    {t:"Cichlid Fish in Lakes",ty:"Lakes",x:"In Lake Victoria, hundreds of cichlid species evolved from a common ancestor in under 15,000 years, each developing a different niche."}
+    {t:"Adaption within Galápagos",ty:"Islands",x:"A single finch colonized the Galápagos and diversified into 18+ species, each with beaks suited to its island's food. This was kind of like the tortoises.",imgs:[{src:"images/finch_circle.png",cap:"Adaptive radiation of the Galápagos finches from a shared ancestral seed-eating ground finch"}]},
+    {t:"Cichlid Fish in Lakes",ty:"Lakes",x:"In Lake Victoria, hundreds of cichlid species evolved from a common ancestor in under 15,000 years, each developing a different niche.",imgs:[{src:"images/cichlid_fish.png",cap:"Cichlid species that radiated from a shared ancestor in Lake Victoria"}]}
   ]},
   {id:"V",title:"Natural Selection",tag:"Survival of the Fittest",blurb:"One of the major factors of evolution. Individuals with traits that fit the conditions to survive pass their traits on. As climates shift, selection shifts with them",ev:[
     {t:"Mosquitoes preparing for Spring",ty:"Climate",x:"Pitcher-plant mosquitoes have evolved to respond to longer, warmer days earlier."},
-    {t:"Coral & Climate Pressure",ty:"Oceans",x:"Warming oceans are a force in evolution (environment). This leads to coral populations evolving to obtain greater heat tolerance. The coral that evolves faster survives."}
+    {t:"Coral & Climate Pressure",ty:"Oceans",x:"Warming oceans are a force in evolution (environment). This leads to coral populations evolving to obtain greater heat tolerance. The coral that evolves faster survives.",imgs:[{src:"images/coral.png",cap:"Coral colonies under selective pressure from warming, changing oceans"}]}
   ]}
 ];
 const CASE=[
@@ -785,10 +791,20 @@ renderVoyage();
 
 /* ============ CLAIMS ============ */
 let cActive=0;
+function evImgs(imgs,arrows){
+  if(!imgs||!imgs.length)return '';
+  let html=`<div class="ev-img-row${imgs.length===1?' single':''}">`;
+  imgs.forEach((im,i)=>{
+    if(i>0&&arrows)html+=`<div class="ev-arrow">&#8594;</div>`;
+    html+=`<figure><img src="${im.src}" alt="${im.cap}" loading="lazy"/><figcaption>${im.cap}</figcaption></figure>`;
+  });
+  html+='</div>';
+  return html;
+}
 function renderClaims(){
   document.getElementById('claimTabs').innerHTML=CLAIMS.map((c,i)=>`<button class="claim-tab ${i===cActive?'active':''}" onclick="setClaim(${i})"><span class="n" style="${i===cActive?'opacity:.8':'color:var(--accent)'}">${c.id}</span>${c.title}</button>`).join('');
   const c=CLAIMS[cActive];
-  document.getElementById('claimPanel').innerHTML=`<div class="claim-panel"><div class="claim-head"><span class="big">${c.id}</span><h3>${c.title}</h3><div class="tag">${c.tag}</div><div class="blurb">${c.blurb}</div></div><div class="claim-body"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:20px">Three Pieces of Evidence</div>${c.ev.map(e=>`<div class="ev-row"><div><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px"><h4>${e.t}</h4><span class="ev-type">${e.ty}</span></div><p>${e.x}</p></div></div>`).join('')}</div></div>`;
+  document.getElementById('claimPanel').innerHTML=`<div class="claim-panel"><div class="claim-head"><span class="big">${c.id}</span><h3>${c.title}</h3><div class="tag">${c.tag}</div><div class="blurb">${c.blurb}</div></div><div class="claim-body"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-fg);margin-bottom:20px">Three Pieces of Evidence</div>${c.ev.map(e=>`<div class="ev-row"><div style="width:100%"><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px"><h4>${e.t}</h4><span class="ev-type">${e.ty}</span></div><p>${e.x}</p>${evImgs(e.imgs,e.arrows)}</div></div>`).join('')}</div></div>`;
 }
 function setClaim(i){cActive=i;renderClaims()}
 renderClaims();
